@@ -14,7 +14,7 @@ data class CartData (
     val restaurantData : RestaurantData?,
     val cartItemCount : String?,
     val noteForRestaurant : String?,
-    val noteForDeliveryPartner : String?,
+    val noteForDeliveryPartner : String,
     val deliveryType : String,
     val scheduledDeliveryTime : String,
     val subtotal : String?,
