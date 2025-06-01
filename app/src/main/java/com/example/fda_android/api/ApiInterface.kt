@@ -8,6 +8,7 @@ import com.example.fda_android.data.RestaurantItem
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.PUT
 
@@ -28,13 +29,14 @@ interface ApiInterface {
     suspend fun addCartItem(): Response<Boolean>
 
     @GET("/cart")
-    suspend fun viewCart(): Response<CartResponse>
+    suspend fun viewCart(
+        @Header("Authorization") token: String
+    ): Response<CartResponse>
 
     @PUT("/cart")
     suspend fun updateCart(): Response<Boolean>
 
     @POST("/orders")
     suspend fun placeOrder(): Response<Boolean>
-
 
 }
