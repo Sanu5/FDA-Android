@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:baselineAligned="false"
     android:orientation="horizontal"
     android:gravity="center"
     android:paddingHorizontal="16dp"
@@ -40,11 +41,11 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_home"/>
+            android:src="@drawable/ic_browse_white"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Home"
+            android:text="Browse"
             android:textSize="12sp"
             android:textColor="@color/white"/>
     </LinearLayout>
@@ -78,7 +79,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_orders_white"/>
+            android:src="@drawable/ic_order_white"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
