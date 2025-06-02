@@ -76,6 +76,4 @@ interface ApiInterface {
         @Path("itemId") itemId: String
     ): Response<ItemResponse>
 
-
-
 }

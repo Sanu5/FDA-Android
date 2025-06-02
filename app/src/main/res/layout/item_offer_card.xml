@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/offerTitle"
             android:layout_marginTop="4dp"
-            android:text="Discover discounts in yor favorite local restaurants."
+            android:text="Discover discounts in your favorite local restaurants."
             android:textColor="#CCFFFFFF"
             android:textSize="13sp"/>
 
