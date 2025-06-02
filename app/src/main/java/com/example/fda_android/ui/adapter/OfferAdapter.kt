@@ -29,7 +29,7 @@ class OfferAdapter(private val offerList : List<Offer>) : RecyclerView.Adapter<O
 
         Glide.with(holder.itemView.context)
             .load(offer.imageUrl)
-            .placeholder(R.drawable.sample_food)
+            .placeholder(R.drawable.sample_food) // optional placeholder
             .into(holder.offerImage)
     }
 
