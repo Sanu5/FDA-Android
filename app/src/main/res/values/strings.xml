@@ -5,4 +5,8 @@
     <string name="deliver">Deliver</string>
     <string name="location">Location</string>
     <string name="restaurant_list_title">Fastest Near Your</string>
+    <string name="home">Home</string>
+    <string name="cart">Cart</string>
+    <string name="orders">Orders</string>
+    <string name="account">Account</string>
 </resources>
