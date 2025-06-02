@@ -105,14 +105,14 @@
                 android:id="@+id/rv_coupon_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:overScrollMode="never"
-                app:layout_constraintTop_toBottomOf="@id/ll_search"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="22dp"
-                tools:listitem="@layout/coupon_list_item"/>
+                android:orientation="horizontal"
+                android:overScrollMode="never"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ll_search"
+                tools:listitem="@layout/coupon_list_item" />
 
             <TextView
                 android:id="@+id/tv_restaurant_list_title"
@@ -140,7 +140,5 @@
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
