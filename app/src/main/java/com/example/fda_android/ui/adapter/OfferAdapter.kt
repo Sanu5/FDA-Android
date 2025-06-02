@@ -8,9 +8,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.fda_android.R
-import com.example.fda_android.data.Offer
+import com.example.fda_android.data.CouponItem
 
-class OfferAdapter(private val offerList : List<Offer>) : RecyclerView.Adapter<OfferAdapter.OfferViewHolder>() {
+class OfferAdapter(private val offerList : List<CouponItem>) : RecyclerView.Adapter<OfferAdapter.OfferViewHolder>() {
     inner class OfferViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         val offerImage: ImageView = itemView.findViewById(R.id.offerImage)
         val offerTitle: TextView = itemView.findViewById(R.id.offerTitle)
@@ -24,12 +24,12 @@ class OfferAdapter(private val offerList : List<Offer>) : RecyclerView.Adapter<O
 
     override fun onBindViewHolder(holder: OfferViewHolder, position: Int) {
         val offer = offerList[position]
-        holder.offerTitle.text = offer.title
+        holder.offerTitle.text = offer.discountAmount
         holder.offerDescription.text = offer.description
 
         Glide.with(holder.itemView.context)
-            .load(offer.imageUrl)
-            .placeholder(R.drawable.sample_food) // optional placeholder
+            .load(offer.logo)
+            .placeholder(R.drawable.sample_food)
             .into(holder.offerImage)
     }
 
