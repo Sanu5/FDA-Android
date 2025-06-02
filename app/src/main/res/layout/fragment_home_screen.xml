@@ -66,7 +66,38 @@
 
             </LinearLayout>
 
-            <!-- TODO: Add the search bar view here  -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal"
+                android:paddingHorizontal="12dp"
+                android:background="@drawable/search_bar_gradient"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_search"
+                    android:contentDescription="Search Icon"/>
+
+                <EditText
+                    android:id="@+id/searchEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Search..."
+                    android:paddingHorizontal="8dp"
+                    android:textColor="@color/white"
+                    android:background="@android:color/transparent"
+                    android:textColorHint="#99FFFFFF"
+                    android:inputType="text"/>
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_qr_code"
+                    android:contentDescription="QR Code Icon" />
+            </LinearLayout>
 
         </LinearLayout>
 
