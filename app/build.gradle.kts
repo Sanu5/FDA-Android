@@ -57,4 +57,7 @@ dependencies {
     implementation(libs.retrofit.gson)
     implementation("com.google.dagger:hilt-android:2.56.2")
     kapt("com.google.dagger:hilt-compiler:2.56.2")
+
+    implementation(libs.glide)
+    kapt(libs.glide.compiler)
 }
