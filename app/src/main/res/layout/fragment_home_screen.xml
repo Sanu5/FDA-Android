@@ -22,6 +22,7 @@
             android:paddingBottom="8dp">
 
             <LinearLayout
+                android:id="@+id/ll_top_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -67,6 +68,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_search"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:orientation="horizontal"
@@ -85,7 +87,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="Search..."
+                    android:hint="Your order?"
                     android:paddingHorizontal="8dp"
                     android:textColor="@color/white"
                     android:background="@android:color/transparent"
@@ -98,6 +100,21 @@
                     android:src="@drawable/ic_qr_code"
                     android:contentDescription="QR Code Icon" />
             </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_coupon_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:overScrollMode="never"
+                app:layout_constraintTop_toBottomOf="@id/ll_search"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="22dp">
+
+
+            </androidx.recyclerview.widget.RecyclerView>
 
         </LinearLayout>
 
