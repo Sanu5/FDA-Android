@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="4dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/cornflower_blue">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp">
+
+        <!-- Main Image -->
+        <ImageView
+            android:id="@+id/image_food"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:src=""
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+        <View
+            android:id="@+id/gradient_overlay"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_bottom_gradient"
+            app:layout_constraintTop_toTopOf="@id/image_food"
+            app:layout_constraintBottom_toBottomOf="@id/image_food"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- Favorite Icon -->
+        <ImageView
+            android:id="@+id/icon_favorite"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_heart"
+            app:tint="@android:color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="20dp" />
+
+        <!-- Rating -->
+        <TextView
+            android:id="@+id/text_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="4.7"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:background="@drawable/bg_rating_rounded"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/cl_root"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp"/>
+
+        <!-- Content below image -->
+        <LinearLayout
+            android:id="@+id/ll_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="16dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            app:layout_constraintTop_toBottomOf="@id/image_food"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/text_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kinka Izakaya"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/text_cuisine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Japanese"
+                android:textColor="@color/white_alpha_60"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text_fee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$3.99 Delivery Fee"
+                    android:textColor="@android:color/white"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="|"
+                    android:textColor="@android:color/white" />
+
+                <TextView
+                    android:id="@+id/text_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="30 min"
+                    android:textColor="@android:color/white"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
