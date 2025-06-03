@@ -22,7 +22,7 @@ data class CouponItem (
     val couponId : String?,
     val discountAmount: String?,
     val description: String?,
-    val logo: String?
+    val logo: Int?
 ) : Parcelable
 
 
@@ -32,6 +32,6 @@ data class RestaurantItem (
     val name : String?,
     val type : String?,
     val rating : String?,
-    val image : String?,
+    val image : Int?,
     val deliveryFee : String
 ) : Parcelable
