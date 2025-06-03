@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.fda_android.R
 import com.example.fda_android.data.RestaurantItem
 
@@ -28,6 +29,10 @@ class RestaurantAdapter (private val restaurantList : List<RestaurantItem>) : Re
         holder.restaurantType.text = restaurant.type
         holder.restaurantRating.text = restaurant.rating
         holder.restaurantDeliveryFee.text = restaurant.deliveryFee
+
+        Glide.with(holder.itemView.context)
+            .load(restaurant.image)
+            .into(holder.restaurantImage)
     }
 
     override fun getItemCount(): Int {
@@ -39,5 +44,6 @@ class RestaurantAdapter (private val restaurantList : List<RestaurantItem>) : Re
         val restaurantType : TextView = restaurantView.findViewById(R.id.text_cuisine)
         val restaurantRating : TextView = restaurantView.findViewById(R.id.text_rating)
         val restaurantDeliveryFee : TextView = restaurantView.findViewById(R.id.text_fee)
+        val restaurantImage : ImageView = restaurantView.findViewById(R.id.image_food)
     }
 }

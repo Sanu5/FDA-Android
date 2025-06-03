@@ -29,7 +29,6 @@ class OfferAdapter(private val offerList : List<CouponItem>) : RecyclerView.Adap
 
         Glide.with(holder.itemView.context)
             .load(offer.logo)
-            .placeholder(R.drawable.sample_food)
             .into(holder.offerImage)
     }
 
