@@ -9,4 +9,8 @@
     <string name="cart">Cart</string>
     <string name="orders">Orders</string>
     <string name="account">Account</string>
+    <string name="add">Add</string>
+    <string name="_16_00">$16.00</string>
+    <string name="thick_handmade_udon_noodles_in_miso_broth_with_fresh_vegetables">Thick handmade udon noodles in miso broth with fresh vegetables.</string>
+    <string name="udon_miso">Udon Miso</string>
 </resources>
