@@ -17,10 +17,7 @@ class HomeScreen : Fragment() {
     private var _binding : FragmentHomeScreenBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,6 +61,30 @@ class HomeScreen : Fragment() {
                 rating = "4.2",
                 image = R.drawable.sample_food,
                 deliveryFee = "₹20"
+            ),
+            RestaurantItem(
+                id = "res3",
+                name = "Urban Bites",
+                type = "Continental",
+                rating = "4.7",
+                image = R.drawable.sample_food,
+                deliveryFee = "₹15"
+            ),
+            RestaurantItem(
+                id = "res3",
+                name = "Urban Bites",
+                type = "Continental",
+                rating = "4.7",
+                image = R.drawable.sample_food,
+                deliveryFee = "₹15"
+            ),
+            RestaurantItem(
+                id = "res3",
+                name = "Urban Bites",
+                type = "Continental",
+                rating = "4.7",
+                image = R.drawable.sample_food,
+                deliveryFee = "₹15"
             ),
             RestaurantItem(
                 id = "res3",
