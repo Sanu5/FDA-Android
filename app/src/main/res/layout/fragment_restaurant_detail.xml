@@ -21,7 +21,7 @@
             android:id="@+id/btnBack"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:background="@android:color/transparent"
+            android:background="@drawable/bg_rating_rounded"
             android:src="@drawable/ic_back"
             android:contentDescription="Back"/>
 
@@ -34,7 +34,7 @@
             android:id="@+id/btnFavorite"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:background="@android:color/transparent"
+            android:background="@drawable/bg_rating_rounded"
             android:src="@drawable/ic_heart"
             android:contentDescription="Favorite"/>
 
@@ -42,10 +42,10 @@
 
     <ImageView
         android:id="@+id/ivMainFood"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="200dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/sample_food"
+        android:src="@drawable/restaurant_sample_image"
         app:layout_constraintTop_toBottomOf="@id/topBar"
         app:layout_constraintStart_toStartOf="@id/grandParentRestaurant"
         app:layout_constraintEnd_toEndOf="@id/grandParentRestaurant"
@@ -55,9 +55,9 @@
         android:id="@+id/restaurantCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:background="@drawable/bg_card_transparent"
+        android:background="@drawable/restaurant_floating_full_bg"
         android:layout_marginTop="-60dp"
+        android:padding="2dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:elevation="8dp"
@@ -66,20 +66,23 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
-            android:id="@+id/nameAddressLayout"
+            android:id="@+id/ll_floating_top"
             android:orientation="vertical"
             android:layout_width="0dp"
             android:alpha="1"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/restaurant_floating_top_bg">
 
             <TextView
                 android:id="@+id/tvRestaurantName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Zzun Izakaya"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="24dp"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
                 android:textSize="24sp"/>
@@ -88,8 +91,10 @@
                 android:id="@+id/tvRestaurantAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginBottom="12dp"
                 android:text="1532 Rue Saint-Laurent, Montreal"
-                android:textColor="@color/white"
+                android:textColor="#99FFFFFF"
                 android:textSize="16sp"/>
         </LinearLayout>
 
@@ -100,9 +105,10 @@
             android:background="@android:color/transparent"
             android:src="@drawable/ic_right_arrow"
             android:contentDescription="Details"
-            app:layout_constraintTop_toTopOf="@id/nameAddressLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/nameAddressLayout"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="12dp"
+            app:layout_constraintBottom_toBottomOf="@id/ll_floating_top"
             android:layout_marginEnd="8dp"/>
 
         <LinearLayout
@@ -110,10 +116,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_margin="8dp"
-            app:layout_constraintTop_toBottomOf="@id/nameAddressLayout"
+            app:layout_constraintTop_toBottomOf="@id/ll_floating_top"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/restaurant_floating_bottom_bg"
             android:gravity="center_vertical">
 
             <TextView
@@ -121,20 +127,40 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Delivery Fee\n$5.99"
-                android:textColor="#4B8DF8"
-                android:textSize="16sp"
+                android:textColor="@color/white_alpha_60"
+                android:textSize="14sp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="20dp"
                 android:layout_weight="1"
                 android:gravity="center"/>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="32dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/white_alpha_60" />
 
             <TextView
                 android:id="@+id/tvDeliveryTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Delivery Time\n30 min"
-                android:textColor="#4B8DF8"
                 android:layout_weight="1"
-                android:textSize="13sp"
+                android:textColor="@color/white_alpha_60"
+                android:textSize="14sp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="20dp"
                 android:gravity="center"/>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="32dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/white_alpha_60" />
 
 
             <TextView
@@ -142,9 +168,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Rating/Review\n4.8 (200)"
-                android:textColor="#4B8DF8"
+                android:textColor="@color/white_alpha_60"
+                android:textSize="14sp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="20dp"
                 android:layout_weight="1"
-                android:textSize="13sp"
                 android:gravity="center"/>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
