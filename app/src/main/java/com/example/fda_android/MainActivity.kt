@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.fda_android.fragments.HomeScreen
+import com.example.fda_android.fragments.RestaurantScreen
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
 
@@ -16,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
         supportFragmentManager.beginTransaction()
-            .replace(R.id.main_container, HomeScreen())
+            .replace(R.id.main_container, RestaurantScreen())
             .commit()
     }
 }

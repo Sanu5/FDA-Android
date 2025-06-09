@@ -60,4 +60,5 @@ dependencies {
 
     implementation(libs.glide)
     kapt(libs.glide.compiler)
+    implementation("com.github.Dimezis:BlurView:version-2.0.6")
 }
