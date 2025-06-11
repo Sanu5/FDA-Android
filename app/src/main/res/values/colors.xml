@@ -10,4 +10,10 @@
     <color name="black_alpha_60">#99000000</color>
     <color name="white_alpha_60">#99FFFFFF</color>
     <color name="indicator_color">#753288F4</color>
+    <color name="wedgewood">#4D79A8</color>
+    <color name="meteorite">#402788</color>
+    <color name="firefly">#0D1B2A</color>
+    <color name="heliotrope">#A259FF</color>
+    <color name="port_gore">#1B1B4A</color>
+    <color name="electric_violet">#933EFF</color>
 </resources>

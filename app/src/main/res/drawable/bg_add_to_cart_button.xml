@@ -2,12 +2,12 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
     <gradient
-        android:startColor="#402788"
-        android:centerColor="#0D1B2A"
-        android:endColor="#402788"
+        android:startColor="@color/meteorite"
+        android:centerColor="@color/firefly"
+        android:endColor="@color/meteorite"
         android:angle="90"/>
     <corners android:radius="12dp" />
     <stroke
         android:width="2dp"
-        android:color="#A259FF" />
+        android:color="@color/heliotrope" />
 </shape>
