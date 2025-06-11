@@ -198,7 +198,7 @@
         <LinearLayout
             android:id="@+id/checkout_button"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:orientation="horizontal"
             android:gravity="center"
             android:background="@drawable/bg_checkout_button"
@@ -215,6 +215,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                android:layout_marginVertical="12dp"
                 android:fontFamily="sans-serif-medium"
                 android:layout_marginEnd="8dp"/>
 
