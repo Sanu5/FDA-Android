@@ -5,16 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="130dp"
     android:layout_margin="8dp"
-    android:padding="16dp"
     android:background="@drawable/btn_gradient_background"
     android:elevation="4dp">
 
     <LinearLayout
         android:id="@+id/textSection"
         android:layout_width="0dp"
+        android:layout_marginStart="16dp"
         android:layout_height="wrap_content"
+        app:layout_constraintHorizontal_weight="2"
         android:orientation="vertical"
-        android:layout_marginEnd="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -57,10 +57,11 @@
     <FrameLayout
         android:id="@+id/imageSection"
         app:layout_constraintStart_toEndOf="@id/textSection"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_weight="1"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.imageview.ShapeableImageView
