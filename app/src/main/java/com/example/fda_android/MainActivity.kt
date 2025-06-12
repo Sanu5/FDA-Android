@@ -49,10 +49,17 @@ class MainActivity : AppCompatActivity() {
         loadFragment(0)
     }
 
+    override fun onBackPressed() {
+        val fragment = supportFragmentManager.findFragmentById(R.id.main_container)
+        if (fragment is HomeScreen) {
+            fragment.handleBackPress()
+        } else {
+            super.onBackPressed()
+        }
+    }
+
     private fun loadFragment(index: Int) {
-
         navItems.forEach { it.isSelected = false }
-
         navItems[index].isSelected = true
 
         supportFragmentManager.beginTransaction()
