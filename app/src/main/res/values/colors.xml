@@ -16,4 +16,5 @@
     <color name="heliotrope">#A259FF</color>
     <color name="port_gore">#1B1B4A</color>
     <color name="electric_violet">#933EFF</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>

@@ -1,11 +1,11 @@
 package com.example.fda_android.fragments
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Switch
 import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -17,6 +17,7 @@ import com.example.fda_android.data.RestaurantItem
 import com.example.fda_android.databinding.FragmentHomeScreenBinding
 import com.example.fda_android.ui.adapter.OfferAdapter
 import com.example.fda_android.ui.adapter.RestaurantAdapter
+import com.google.android.material.switchmaterial.SwitchMaterial
 
 class HomeScreen : Fragment() {
     private var _binding : FragmentHomeScreenBinding? = null
@@ -24,7 +25,7 @@ class HomeScreen : Fragment() {
 
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var closeBtn: ImageView
-    private lateinit var darkModeSwitch: Switch
+    private lateinit var darkModeSwitch: SwitchMaterial
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
