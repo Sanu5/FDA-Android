@@ -9,8 +9,9 @@ appcompat = "1.6.1"
 material = "1.12.0"
 activity = "1.10.1"
 constraintlayout = "2.2.1"
-retrofit = "2.9.0"
-glide = "4.15.1"
+retrofit = "3.0.0"
+glide = "4.16.0"
+databindingCommon = "8.10.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -25,6 +26,7 @@ retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit
 retrofit-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "glide" }
+androidx-databinding-common = { group = "androidx.databinding", name = "databinding-common", version.ref = "databindingCommon" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

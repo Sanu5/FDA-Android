@@ -23,7 +23,7 @@
             android:layout_height="36dp"
             android:background="@drawable/bg_rating_rounded"
             android:src="@drawable/ic_back"
-            android:contentDescription="Back"/>
+            android:contentDescription="@string/back"/>
 
         <View
             android:layout_width="0dp"
@@ -81,6 +81,9 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:bindingStartColor="@{@color/indicator_color}"
+                    android:bindingCenterColor="@{@color/indicator_color}"
+                    android:bindingEndColor="@{@color/indicator_color}"
                     android:background="@drawable/restaurant_floating_top_bg">
 
                     <TextView
