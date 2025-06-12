@@ -63,4 +63,5 @@ dependencies {
     implementation("com.github.Dimezis:BlurView:version-2.0.6")
     implementation("androidx.drawerlayout:drawerlayout:1.2.0")
     implementation("com.google.android.material:material:1.11.0")
+    implementation(libs.androidx.databinding.common)
 }
