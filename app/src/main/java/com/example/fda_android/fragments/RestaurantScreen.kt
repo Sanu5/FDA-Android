@@ -37,7 +37,7 @@ class RestaurantScreen: Fragment() {
 
         blurView.setupWith(decor, RenderEffectBlur())
             .setFrameClearDrawable(windowBackground)
-            .setBlurRadius(2f)
+            .setBlurRadius(4f)
             .setBlurAutoUpdate(true)
 
     }
