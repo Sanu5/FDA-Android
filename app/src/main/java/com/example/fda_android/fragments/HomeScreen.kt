@@ -4,6 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.Switch
+import android.widget.Toast
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fda_android.R
@@ -17,7 +22,9 @@ class HomeScreen : Fragment() {
     private var _binding : FragmentHomeScreenBinding? = null
     private val binding get() = _binding!!
 
-
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var closeBtn: ImageView
+    private lateinit var darkModeSwitch: Switch
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,6 +38,22 @@ class HomeScreen : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupOfferList()
         setupRestaurantList()
+
+        drawerLayout = binding.drawerLayout
+        closeBtn = binding.closeBtn
+        darkModeSwitch = binding.darkModeSwitch
+
+        binding.menuIcon.setOnClickListener {
+            drawerLayout.openDrawer(GravityCompat.START)
+        }
+
+        closeBtn.setOnClickListener {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        }
+
+        darkModeSwitch.setOnCheckedChangeListener { _, isChecked ->
+            Toast.makeText(requireContext(), if(isChecked) "Dark Mode Enabled" else "Dark Mode Disabled", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun setupOfferList(){
@@ -99,6 +122,14 @@ class HomeScreen : Fragment() {
         binding.rxRestaurantList.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.rxRestaurantList.adapter = RestaurantAdapter(dummyRestaurants)
+    }
+
+    fun handleBackPress() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
     }
 
 }
