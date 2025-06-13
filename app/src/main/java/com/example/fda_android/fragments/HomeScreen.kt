@@ -1,6 +1,5 @@
 package com.example.fda_android.fragments
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,16 +9,19 @@ import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.fda_android.R
-import com.example.fda_android.data.CouponItem
-import com.example.fda_android.data.RestaurantItem
+import com.example.fda_android.data.HomeResponse
 import com.example.fda_android.databinding.FragmentHomeScreenBinding
 import com.example.fda_android.ui.adapter.OfferAdapter
 import com.example.fda_android.ui.adapter.RestaurantAdapter
+import com.example.fda_android.utils.UiState
+import com.example.fda_android.viewmodel.HomeViewModel
 import com.google.android.material.switchmaterial.SwitchMaterial
 
 class HomeScreen : Fragment() {
+    private val viewModel: HomeViewModel by viewModels()
     private var _binding : FragmentHomeScreenBinding? = null
     private val binding get() = _binding!!
 
@@ -37,8 +39,6 @@ class HomeScreen : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupOfferList()
-        setupRestaurantList()
 
         drawerLayout = binding.drawerLayout
         closeBtn = binding.closeBtn
@@ -55,74 +55,36 @@ class HomeScreen : Fragment() {
         darkModeSwitch.setOnCheckedChangeListener { _, isChecked ->
             Toast.makeText(requireContext(), if(isChecked) "Dark Mode Enabled" else "Dark Mode Disabled", Toast.LENGTH_SHORT).show()
         }
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.homeState.collect { state ->
+                when (state) {
+                    is UiState.Error -> {
+                        Toast.makeText(requireContext(), "Error: ${state.message}", Toast.LENGTH_SHORT).show()
+                    }
+                    UiState.Loading -> {
+                        Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
+                    }
+                    is UiState.Success<*> -> {
+                        val response = state.data as HomeResponse
+                        setupOfferList(response)
+                        setupRestaurantList(response)
+                    }
+                }
+            }
+        }
     }
 
-    private fun setupOfferList(){
-        val dummyOffers = listOf(
-            CouponItem("1", "₹100 OFF", "On orders above ₹499", R.drawable.sample_food),
-            CouponItem("2", "Buy 1 Get 1", "On selected items", R.drawable.sample_food),
-            CouponItem("3", "20% Cashback", "Up to ₹75", R.drawable.sample_food)
-        )
+    private fun setupOfferList(response: HomeResponse) {
         binding.rvCouponList.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.rvCouponList.adapter = OfferAdapter(dummyOffers)
+        binding.rvCouponList.adapter = OfferAdapter(response.data.couponView)
     }
 
-    private fun setupRestaurantList(){
-        val dummyRestaurants = listOf(
-            RestaurantItem(
-                id = "res1",
-                name = "Spice Villa",
-                type = "North Indian",
-                rating = "4.5",
-                image = R.drawable.sample_food,
-                deliveryFee = "Free"
-            ),
-            RestaurantItem(
-                id = "res2",
-                name = "Dragon Express",
-                type = "Chinese",
-                rating = "4.2",
-                image = R.drawable.sample_food,
-                deliveryFee = "₹20"
-            ),
-            RestaurantItem(
-                id = "res3",
-                name = "Urban Bites",
-                type = "Continental",
-                rating = "4.7",
-                image = R.drawable.sample_food,
-                deliveryFee = "₹15"
-            ),
-            RestaurantItem(
-                id = "res3",
-                name = "Urban Bites",
-                type = "Continental",
-                rating = "4.7",
-                image = R.drawable.sample_food,
-                deliveryFee = "₹15"
-            ),
-            RestaurantItem(
-                id = "res3",
-                name = "Urban Bites",
-                type = "Continental",
-                rating = "4.7",
-                image = R.drawable.sample_food,
-                deliveryFee = "₹15"
-            ),
-            RestaurantItem(
-                id = "res3",
-                name = "Urban Bites",
-                type = "Continental",
-                rating = "4.7",
-                image = R.drawable.sample_food,
-                deliveryFee = "₹15"
-            )
-        )
-
+    private fun setupRestaurantList(response: HomeResponse){
         binding.rxRestaurantList.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.rxRestaurantList.adapter = RestaurantAdapter(dummyRestaurants)
+        binding.rxRestaurantList.adapter = RestaurantAdapter(response.data.restaurantList)
     }
 
     fun handleBackPress() {
@@ -132,5 +94,4 @@ class HomeScreen : Fragment() {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
     }
-
 }
