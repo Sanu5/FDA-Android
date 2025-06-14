@@ -30,8 +30,10 @@
             android:layout_marginTop="16dp"
             android:autofillHints="..."
             android:background="@drawable/bg_edit_text"
-            android:inputType="textPersonName"
-            android:paddingVertical="12dp" />
+            android:inputType="text"
+            android:paddingVertical="12dp"
+            android:paddingHorizontal="24dp"
+            android:textColor="#0E435C"/>
 
         <TextView
             android:id="@+id/tv_mobile"
@@ -54,7 +56,9 @@
             android:autofillHints="..."
             android:background="@drawable/bg_edit_text"
             android:inputType="number"
-            android:paddingVertical="12dp" />
+            android:paddingVertical="12dp"
+            android:paddingHorizontal="24dp"
+            android:textColor="#0E435C"/>
 
         <TextView
             android:id="@+id/tv_email"
@@ -77,7 +81,9 @@
             android:autofillHints="..."
             android:background="@drawable/bg_edit_text"
             android:inputType="textEmailAddress"
-            android:paddingVertical="12dp" />
+            android:paddingVertical="12dp"
+            android:paddingHorizontal="24dp"
+            android:textColor="#0E435C" />
 
     </LinearLayout>
 
