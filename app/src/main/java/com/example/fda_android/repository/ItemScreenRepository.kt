@@ -11,12 +11,5 @@ class ItemScreenRepository @Inject constructor(
     suspend fun getItemData(
         restaurantId: String,
         itemId: String
-    ): ItemResponse {
-        val response = apiInterface.getItemData(restaurantId, itemId)
-        if (response.isSuccessful) {
-            return response.body()!!
-        } else {
-            throw Exception("Failed to fetch item data: ${response.code()}")
-        }
-    }
+    ): ItemResponse  = apiInterface.getItemData(restaurantId, itemId).body()!!
 }

@@ -6,12 +6,5 @@ import javax.inject.Inject
 import retrofit2.Response
 
 class RestaurantScreenRepository @Inject constructor(private val apiInterface: ApiInterface) {
-    suspend fun getRestaurantData(restaurantId: String): RestaurantViewResponse {
-        val response: Response<RestaurantViewResponse> = apiInterface.getRestaurantData(restaurantId)
-        if (response.isSuccessful) {
-            return response.body()!!
-        } else {
-            throw Exception("Failed to fetch restaurant data: ${response.code()}")
-        }
-    }
+    suspend fun getRestaurantData(restaurantId: String): RestaurantViewResponse = apiInterface.getRestaurantData(restaurantId).body()!!
 }
