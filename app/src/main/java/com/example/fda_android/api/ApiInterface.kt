@@ -66,12 +66,12 @@ interface ApiInterface {
 //    ): Response<ReviewRequestResponse>
 
     @GET("/restaurants/{id}")
-    suspend fun getRestaurantDetails(
+    suspend fun getRestaurantData(
         @Path("id") restaurantId: String
     ): Response<RestaurantViewResponse>
 
     @GET("/restaurants/{id}/menu/{itemId}")
-    suspend fun getItemDetails(
+    suspend fun getItemData(
         @Path("id") restaurantId: String,
         @Path("itemId") itemId: String
     ): Response<ItemResponse>
