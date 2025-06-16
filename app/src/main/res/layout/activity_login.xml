@@ -12,31 +12,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="@string/enter_name"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:typeface="sans" />
-
-        <EditText
-            android:id="@+id/et_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="16dp"
-            android:autofillHints="..."
-            android:background="@drawable/bg_edit_text"
-            android:inputType="text"
-            android:paddingHorizontal="24dp"
-            android:paddingVertical="12dp"
-            android:textColor="#0E435C" />
-
-        <TextView
-            android:id="@+id/tv_mobile"
+            android:id="@+id/tv_mobile_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -48,7 +24,7 @@
             android:typeface="sans" />
 
         <EditText
-            android:id="@+id/et_number"
+            android:id="@+id/et_number_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
@@ -61,46 +37,50 @@
             android:textColor="#0E435C" />
 
         <TextView
-            android:id="@+id/tv_email"
+            android:id="@+id/tv_password_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="24dp"
-            android:text="@string/enter_email"
+            android:text="Enter your password"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
             android:typeface="sans" />
 
         <EditText
-            android:id="@+id/et_email"
+            android:id="@+id/et_password_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="16dp"
             android:autofillHints="..."
             android:background="@drawable/bg_edit_text"
-            android:inputType="textEmailAddress"
+            android:inputType="numberPassword"
             android:paddingHorizontal="24dp"
             android:paddingVertical="12dp"
             android:textColor="#0E435C" />
 
         <TextView
-            android:id="@+id/tv_login_link"
+            android:id="@+id/tv_register_link"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
+            android:textColor="#42A5F5"
             android:clickable="true"
             android:focusable="true"
-            android:text="Already registered? Login"
-            android:textColor="#42A5F5"
-            android:textStyle="bold" />
+            android:text="New user? Click to register"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bt_continue_login" />
 
     </LinearLayout>
 
+
     <LinearLayout
-        android:id="@+id/bt_continue"
+        android:id="@+id/bt_continue_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="22dp"
