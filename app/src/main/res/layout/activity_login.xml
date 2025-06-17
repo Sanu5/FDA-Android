@@ -2,12 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_main">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_main"
         android:gravity="center_vertical"
         android:orientation="vertical">
 
@@ -56,7 +56,7 @@
             android:layout_marginTop="16dp"
             android:autofillHints="..."
             android:background="@drawable/bg_edit_text"
-            android:inputType="numberPassword"
+            android:inputType="textPassword"
             android:paddingHorizontal="24dp"
             android:paddingVertical="12dp"
             android:textColor="#0E435C" />
@@ -111,5 +111,18 @@
             android:src="@drawable/ic_continue" />
 
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:indeterminate="true"
+        android:visibility="gone"
+        android:indeterminateTint="@color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

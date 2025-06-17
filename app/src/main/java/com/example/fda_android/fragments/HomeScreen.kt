@@ -61,14 +61,20 @@ class HomeScreen : Fragment() {
         lifecycleScope.launchWhenStarted {
             viewModel.homeState.collect { state ->
                 when (state) {
+                    is UiState.Empty -> {
+                        binding.progressBar.visibility = View.GONE
+                    }
                     is UiState.Error -> {
+                        binding.progressBar.visibility = View.GONE
                         Toast.makeText(requireContext(), "Error: ${state.message}", Toast.LENGTH_SHORT).show()
                     }
                     UiState.Loading -> {
+                        binding.progressBar.visibility = View.VISIBLE
                         Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
                     }
-                    is UiState.Success<*> -> {
-                        val response = state.data as HomeResponse
+                    is UiState.Success -> {
+                        binding.progressBar.visibility = View.GONE
+                        val response = state.data
                         setupOfferList(response)
                         setupRestaurantList(response)
                     }

@@ -4,12 +4,16 @@ import android.os.Parcelable
 import com.example.fda_android.utils.UserType
 import kotlinx.parcelize.Parcelize
 
-@Parcelize
-data class RegisterRequest(
-    val name : String,
-    val email: String,
-    val phoneNumber: String,
-    val password: String,
-    val role : UserType?
-) : Parcelable
+data class AuthResponse(
+    val success : Boolean,
+    val token: String,
+    val user: User
+)
 
+@Parcelize
+data class User(
+    val id: String,
+    val name: String,
+    val phoneNumber: String,
+    val role: UserType
+) : Parcelable

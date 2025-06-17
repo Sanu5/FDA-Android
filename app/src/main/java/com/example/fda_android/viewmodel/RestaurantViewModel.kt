@@ -15,7 +15,7 @@ import javax.inject.Inject
 class RestaurantViewModel @Inject constructor(
     private val repository: RestaurantScreenRepository
 ) : ViewModel() {
-    private val _restaurantState = MutableStateFlow<UiState<RestaurantViewResponse>>(UiState.Loading)
+    private val _restaurantState = MutableStateFlow<UiState<RestaurantViewResponse>>(UiState.Empty)
     val restaurantState: StateFlow<UiState<RestaurantViewResponse>> = _restaurantState
 
     fun fetchRestaurantData(restaurantId: String) {
