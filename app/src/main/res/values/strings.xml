@@ -15,4 +15,7 @@
     <string name="udon_miso">Udon Miso</string>
     <string name="featured_items">Featured Items</string>
     <string name="back">Back</string>
+    <string name="enter_number">Enter your mobile number</string>
+    <string name="enter_name">Enter your name</string>
+    <string name="enter_email">Enter your email</string>
 </resources>
