@@ -22,8 +22,15 @@ class RestaurantViewModel @Inject constructor(
         viewModelScope.launch {
             _restaurantState.value = UiState.Loading
             try {
-                val restaurant = repository.getRestaurantData(restaurantId)
-                _restaurantState.value = UiState.Success(restaurant)
+                val response = repository.getRestaurantData(restaurantId)
+                if (response.isSuccessful && response.body() != null) {
+                    _restaurantState.value = UiState.Success(response.body()!!)
+                } else {
+                    _restaurantState.value = UiState.Error(
+                        code = response.code(),
+                        message = response.message() ?: "Unknown error occurred"
+                    )
+                }
             } catch (e: Exception) {
                 _restaurantState.value = UiState.Error(message = e.localizedMessage ?: "Unknown error occurred")
             }

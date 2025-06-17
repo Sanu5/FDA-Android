@@ -6,5 +6,7 @@ import javax.inject.Inject
 import retrofit2.Response
 
 class RestaurantScreenRepository @Inject constructor(private val apiInterface: ApiInterface) {
-    suspend fun getRestaurantData(restaurantId: String): RestaurantViewResponse = apiInterface.getRestaurantData(restaurantId).body()!!
+    suspend fun getRestaurantData(restaurantId: String): Response<RestaurantViewResponse> {
+        return apiInterface.getRestaurantData(restaurantId)
+    }
 }
