@@ -15,7 +15,7 @@ import javax.inject.Inject
 class CartViewModel @Inject constructor(
     private val repository: CartRepository
 ) : ViewModel() {
-    private val _cartState = MutableStateFlow<UiState<CartResponse>>(UiState.Loading)
+    private val _cartState = MutableStateFlow<UiState<CartResponse>>(UiState.Empty)
     val cartState: StateFlow<UiState<CartResponse>> = _cartState
 
     fun fetchCartData(token: String) {

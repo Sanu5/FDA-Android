@@ -8,3 +8,9 @@ data class LoginResponse(
     val success: Boolean,
     val token : String
 ) : Parcelable
+
+@Parcelize
+data class LoginRequest(
+    val number: String,
+    val password: String
+) : Parcelable

@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val repository: HomeScreenRepository): ViewModel() {
-    private val _homeState = MutableStateFlow<UiState<HomeResponse>>(UiState.Loading)
+    private val _homeState = MutableStateFlow<UiState<HomeResponse>>(UiState.Empty)
     val homeState: StateFlow<UiState<HomeResponse>> = _homeState
 
     init {

@@ -15,7 +15,7 @@ import javax.inject.Inject
 class ItemViewModel @Inject constructor(
     private val repository: ItemScreenRepository
 ) : ViewModel() {
-    private val _itemState = MutableStateFlow<UiState<ItemResponse>>(UiState.Loading)
+    private val _itemState = MutableStateFlow<UiState<ItemResponse>>(UiState.Empty)
     val itemState: StateFlow<UiState<ItemResponse>> = _itemState
 
     fun fetchItemData(restaurantId: String, itemId: String) {

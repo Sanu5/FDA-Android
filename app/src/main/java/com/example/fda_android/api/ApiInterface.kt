@@ -3,12 +3,11 @@ package com.example.fda_android.api
 import com.example.fda_android.data.AddCartItemRequest
 import com.example.fda_android.data.CartResponse
 import com.example.fda_android.data.CartUpdateRequest
-import com.example.fda_android.data.FeaturedItem
 import com.example.fda_android.data.HomeResponse
 import com.example.fda_android.data.ItemResponse
+import com.example.fda_android.data.LoginRequest
 import com.example.fda_android.data.RegisterRequest
-import com.example.fda_android.data.RegisterResponse
-import com.example.fda_android.data.RestaurantItem
+import com.example.fda_android.data.AuthResponse
 import com.example.fda_android.data.RestaurantViewResponse
 import retrofit2.Response
 import retrofit2.http.Body
@@ -20,10 +19,10 @@ import retrofit2.http.Path
 
 interface ApiInterface {
     @POST("/auth/register")
-    suspend fun registerUser(@Body request: RegisterRequest): Response<RegisterResponse>
+    suspend fun registerUser(@Body request: RegisterRequest): Response<AuthResponse>
 
     @POST("/auth/login")
-    suspend fun loginUser(@Body request: RegisterRequest): RegisterResponse
+    suspend fun loginUser(@Body request: LoginRequest): Response<AuthResponse>
 
     @GET("/home")
     suspend fun getHomeData(): Response<HomeResponse>
