@@ -44,8 +44,8 @@ interface ApiInterface {
         @Header("Authorization") token: String
     ): Response<CartResponse>
 
-    @POST("/orders")
-    suspend fun placeOrder(): Response<Boolean>
+//    @POST("/orders")
+//    suspend fun placeOrder(): Response<Boolean>
 
 //    @GET("/users")
 //    suspend fun getUserProfile(

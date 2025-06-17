@@ -22,8 +22,15 @@ class ItemViewModel @Inject constructor(
         viewModelScope.launch {
             _itemState.value = UiState.Loading
             try {
-                val item = repository.getItemData(restaurantId, itemId)
-                _itemState.value = UiState.Success(item)
+                val response = repository.getItemData(restaurantId, itemId)
+                if (response.isSuccessful && response.body() != null) {
+                    _itemState.value = UiState.Success(response.body()!!)
+                } else {
+                    _itemState.value = UiState.Error(
+                        code = response.code(),
+                        message = response.message() ?: "Unknown error occurred"
+                    )
+                }
             } catch (e: Exception) {
                 _itemState.value = UiState.Error(message = e.localizedMessage ?: "Unknown error occurred")
             }

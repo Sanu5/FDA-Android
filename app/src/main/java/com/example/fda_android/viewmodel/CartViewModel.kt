@@ -22,8 +22,15 @@ class CartViewModel @Inject constructor(
         viewModelScope.launch {
             _cartState.value = UiState.Loading
             try {
-                val cart = repository.getCartData(token)
-                _cartState.value = UiState.Success(cart)
+                val response = repository.getCartData(token)
+                if (response.isSuccessful && response.body() != null) {
+                    _cartState.value = UiState.Success(response.body()!!)
+                } else {
+                    _cartState.value = UiState.Error(
+                        code = response.code(),
+                        message = response.message() ?: "Unknown error occurred"
+                    )
+                }
             } catch (e: Exception) {
                 _cartState.value = UiState.Error(message = e.localizedMessage ?: "Unknown error occurred")
             }

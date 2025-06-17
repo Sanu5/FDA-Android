@@ -24,8 +24,15 @@ class HomeViewModel @Inject constructor(private val repository: HomeScreenReposi
         viewModelScope.launch {
             _homeState.value = UiState.Loading
             try {
-                val home = repository.getHomeScreenData()
-                _homeState.value = UiState.Success(home)
+                val response = repository.getHomeScreenData()
+                if (response.isSuccessful && response.body() != null) {
+                    _homeState.value = UiState.Success(response.body()!!)
+                } else {
+                    _homeState.value = UiState.Error(
+                        code = response.code(),
+                        message = response.message() ?: "Unknown error occurred"
+                    )
+                }
             } catch (e: Exception) {
                 _homeState.value = UiState.Error(message = e.localizedMessage?: "Unknown error occurred")
             }

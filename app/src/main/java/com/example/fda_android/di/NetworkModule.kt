@@ -1,11 +1,13 @@
 package com.example.fda_android.di
 
 import com.example.fda_android.api.ApiInterface
+import com.example.fda_android.api.AuthInterceptor
 import com.example.fda_android.utils.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -25,4 +27,11 @@ object NetworkModule {
     @Singleton
     fun provideApiService(retrofit: Retrofit): ApiInterface =
         retrofit.create(ApiInterface::class.java)
+
+    @Provides
+    @Singleton
+    fun provideOkhttpClient(authInterceptor: AuthInterceptor): OkHttpClient =
+        OkHttpClient.Builder()
+            .addInterceptor(authInterceptor)
+            .build()
 }
