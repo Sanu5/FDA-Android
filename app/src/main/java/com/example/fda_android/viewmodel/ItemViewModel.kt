@@ -18,6 +18,7 @@ class ItemViewModel @Inject constructor(
     private val _itemState = MutableStateFlow<UiState<ItemResponse>>(UiState.Empty)
     val itemState: StateFlow<UiState<ItemResponse>> = _itemState
 
+
     fun fetchItemData(restaurantId: String, itemId: String) {
         viewModelScope.launch {
             _itemState.value = UiState.Loading

@@ -4,18 +4,19 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.os.PersistableBundle
+import android.view.View
+import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.fda_android.databinding.ActivitySplashBinding
-import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
+import com.example.fda_android.utils.TokenManager
 
 class SplashScreen : AppCompatActivity() {
 
     private var _binding : ActivitySplashBinding? = null
     private val binding get() = _binding!!
+    private lateinit var tokenManager: TokenManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,26 +25,36 @@ class SplashScreen : AppCompatActivity() {
         _binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val textViewTop = binding.tvMain
-        val bottomText = binding.tvBottom
-        val cta = binding.btContinue
-
         val fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in)
         val slideUp = AnimationUtils.loadAnimation(this, R.anim.slide_up)
 
-        textViewTop.startAnimation(fadeIn)
+        fadeIn.setAnimationListener(object: Animation.AnimationListener {
+            override fun onAnimationStart(a: Animation) {}
+            override fun onAnimationRepeat(a: Animation) {}
+            override fun onAnimationEnd(a: Animation) {
+                binding.tvBottom.visibility = View.VISIBLE
+                binding.tvBottom.startAnimation(slideUp)
+            }
+        })
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            bottomText.startAnimation(slideUp)
-            cta.startAnimation(slideUp)
-        }, 2200)
+        slideUp.setAnimationListener(object: Animation.AnimationListener {
+            override fun onAnimationStart(a: Animation) {}
+            override fun onAnimationRepeat(a: Animation) {}
+            override fun onAnimationEnd(a: Animation) {
+                Handler(Looper.getMainLooper()).postDelayed({
+                    if (tokenManager.getToken() == null){
+                        startActivity(Intent(this@SplashScreen, RegistrationActivity::class.java))
+                    } else {
+                        startActivity(Intent(this@SplashScreen, MainActivity::class.java))
+                    }
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                    finish()
+                }, 1500)
+            }
+        })
 
-
-        Handler(Looper.getMainLooper()).postDelayed({
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-            startActivity(Intent(this, RegistrationActivity::class.java))
-            finish()
-        }, 3500)
+        binding.tvMain.visibility = View.VISIBLE
+        binding.tvMain.startAnimation(fadeIn)
 
     }
 
