@@ -8,6 +8,7 @@ import com.example.fda_android.data.ItemResponse
 import com.example.fda_android.data.LoginRequest
 import com.example.fda_android.data.RegisterRequest
 import com.example.fda_android.data.AuthResponse
+import com.example.fda_android.data.RestaurantItem
 import com.example.fda_android.data.RestaurantViewResponse
 import retrofit2.Response
 import retrofit2.http.Body
@@ -26,6 +27,9 @@ interface ApiInterface {
 
     @GET("/home")
     suspend fun getHomeData(): Response<HomeResponse>
+
+    @GET("/restaurants")
+    suspend fun getRestaurantList(): Response<List<RestaurantItem>>
 
     @POST("/cart/add")
     suspend fun addCartItem(
