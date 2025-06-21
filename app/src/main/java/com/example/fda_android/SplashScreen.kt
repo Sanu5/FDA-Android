@@ -11,12 +11,17 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.fda_android.databinding.ActivitySplashBinding
 import com.example.fda_android.utils.TokenManager
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class SplashScreen : AppCompatActivity() {
 
     private var _binding : ActivitySplashBinding? = null
     private val binding get() = _binding!!
-    private lateinit var tokenManager: TokenManager
+
+    @Inject
+    lateinit var tokenManager: TokenManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +29,7 @@ class SplashScreen : AppCompatActivity() {
 
         _binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
         val fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in)
         val slideUp = AnimationUtils.loadAnimation(this, R.anim.slide_up)

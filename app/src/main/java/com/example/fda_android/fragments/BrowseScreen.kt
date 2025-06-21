@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.fda_android.R
 import com.example.fda_android.data.RestaurantItem
 import com.example.fda_android.databinding.FragmentBrowseBinding
 import com.example.fda_android.ui.adapter.RestaurantAdapter
@@ -59,7 +60,28 @@ class BrowseScreen: Fragment() {
     private fun setupRestaurantList(response: List<RestaurantItem>) {
         binding.rxRestaurantList.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.rxRestaurantList.adapter = RestaurantAdapter(response)
+        binding.rxRestaurantList.adapter = RestaurantAdapter(
+            restaurantList = response,
+            onClick = ::onRestaurantClick
+        )
+    }
+
+    private fun onRestaurantClick(restaurantId: String?) {
+        if (restaurantId != null) return
+
+        val fragment = RestaurantScreen().apply {
+            arguments = Bundle().apply {
+                putString("restaurantId", restaurantId)
+            }
+        }
+
+        parentFragmentManager
+            .beginTransaction()
+            .setReorderingAllowed(true)
+            .addToBackStack(null)
+            .replace(R.id.main_fragment_container, fragment)
+            .commit()
+
     }
 
     override fun onDestroyView() {

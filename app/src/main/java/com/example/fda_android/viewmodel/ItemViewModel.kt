@@ -18,12 +18,11 @@ class ItemViewModel @Inject constructor(
     private val _itemState = MutableStateFlow<UiState<ItemResponse>>(UiState.Empty)
     val itemState: StateFlow<UiState<ItemResponse>> = _itemState
 
-
-    fun fetchItemData(restaurantId: String, itemId: String) {
+    fun fetchItemData(itemId: String?) {
         viewModelScope.launch {
             _itemState.value = UiState.Loading
             try {
-                val response = repository.getItemData(restaurantId, itemId)
+                val response = repository.getItemData(itemId)
                 if (response.isSuccessful && response.body() != null) {
                     _itemState.value = UiState.Success(response.body()!!)
                 } else {

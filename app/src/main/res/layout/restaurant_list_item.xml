@@ -15,7 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="200dp">
 
-        <!-- Main Image -->
         <ImageView
             android:id="@+id/image_food"
             android:layout_width="0dp"
@@ -37,7 +36,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <!-- Favorite Icon -->
         <ImageView
             android:id="@+id/icon_favorite"
             android:layout_width="16dp"
@@ -48,7 +46,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_margin="20dp" />
 
-        <!-- Rating -->
         <TextView
             android:id="@+id/text_rating"
             android:layout_width="wrap_content"
@@ -64,7 +61,6 @@
             android:layout_marginBottom="10dp"
             android:layout_marginEnd="10dp"/>
 
-        <!-- Content below image -->
         <LinearLayout
             android:id="@+id/ll_content"
             android:layout_width="0dp"
@@ -117,6 +113,7 @@
                     android:text="|"
                     android:textColor="@android:color/white" />
             </LinearLayout>
+
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
