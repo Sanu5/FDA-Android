@@ -67,7 +67,7 @@ class BrowseScreen: Fragment() {
     }
 
     private fun onRestaurantClick(restaurantId: String?) {
-        if (restaurantId != null) return
+        if (restaurantId == null) return
 
         val fragment = RestaurantScreen().apply {
             arguments = Bundle().apply {
