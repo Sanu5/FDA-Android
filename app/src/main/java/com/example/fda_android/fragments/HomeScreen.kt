@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.fda_android.R
 import com.example.fda_android.data.HomeResponse
 import com.example.fda_android.databinding.FragmentHomeScreenBinding
 import com.example.fda_android.ui.adapter.OfferAdapter
@@ -46,10 +48,6 @@ class HomeScreen : Fragment() {
         closeBtn = binding.closeBtn
         darkModeSwitch = binding.darkModeSwitch
 
-        binding.menuIcon.setOnClickListener {
-            drawerLayout.openDrawer(GravityCompat.START)
-        }
-
         closeBtn.setOnClickListener {
             drawerLayout.closeDrawer(GravityCompat.START)
         }
@@ -57,6 +55,16 @@ class HomeScreen : Fragment() {
         darkModeSwitch.setOnCheckedChangeListener { _, isChecked ->
             Toast.makeText(requireContext(), if(isChecked) "Dark Mode Enabled" else "Dark Mode Disabled", Toast.LENGTH_SHORT).show()
         }
+
+        val toolbar: Toolbar = binding.topBar
+        val customview = layoutInflater.inflate(R.layout.toolbar_home_custom_view, toolbar, false)
+        toolbar.addView(customview)
+
+        customview.findViewById<ImageView>(R.id.menu_icon).setOnClickListener {
+            drawerLayout.openDrawer(GravityCompat.START)
+        }
+
+
 
         lifecycleScope.launchWhenStarted {
             viewModel.homeState.collect { state ->
@@ -92,7 +100,28 @@ class HomeScreen : Fragment() {
     private fun setupRestaurantList(response: HomeResponse){
         binding.rxRestaurantList.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.rxRestaurantList.adapter = RestaurantAdapter(response.data.restaurantList)
+        binding.rxRestaurantList.adapter = RestaurantAdapter(
+            restaurantList = response.data.restaurantList,
+            onClick = ::onRestaurantClick
+        )
+    }
+
+    private fun onRestaurantClick(restaurantId: String?) {
+        if (restaurantId != null) return
+
+        val fragment = RestaurantScreen().apply {
+            arguments = Bundle().apply {
+                putString("restaurantId", restaurantId)
+            }
+        }
+
+        parentFragmentManager
+            .beginTransaction()
+            .setReorderingAllowed(true)
+            .addToBackStack(null)
+            .replace(R.id.main_fragment_container, fragment)
+            .commit()
+
     }
 
     fun handleBackPress() {

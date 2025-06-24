@@ -14,7 +14,7 @@ data class RestaurantData (
     val restaurantId : String?,
     val restaurantImage : String?,
     val floatingView : FloatingViewItem?,
-    val featuredItemsList : List<FeaturedItem>?
+    val featuredItemsList : List<FeaturedItem>
 ) : Parcelable
 
 @Parcelize

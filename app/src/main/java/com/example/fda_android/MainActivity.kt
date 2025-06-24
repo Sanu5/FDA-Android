@@ -1,11 +1,13 @@
 package com.example.fda_android
 
 import android.os.Bundle
+import android.view.View
 import android.widget.LinearLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.fda_android.databinding.ActivityMainBinding
+import com.example.fda_android.fragments.BrowseScreen
 import com.example.fda_android.fragments.HomeScreen
 import com.example.fda_android.fragments.RestaurantScreen
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     private val fragments: List<Fragment> by lazy {
         listOf(
             HomeScreen(),
-            RestaurantScreen(),        //Browse
+            BrowseScreen(),        //Browse
             HomeScreen(),              //Cart
             RestaurantScreen(),        //Orders
             HomeScreen(),              //Account
@@ -47,14 +49,28 @@ class MainActivity : AppCompatActivity() {
         }
 
         loadFragment(0)
+
+        supportFragmentManager.addOnBackStackChangedListener {
+            updateNavBarVisibility()
+        }
     }
 
     override fun onBackPressed() {
-        val fragment = supportFragmentManager.findFragmentById(R.id.main_container)
+        val fragment = supportFragmentManager.findFragmentById(R.id.main_fragment_container)
         if (fragment is HomeScreen) {
             fragment.handleBackPress()
         } else {
             super.onBackPressed()
+        }
+    }
+
+    private fun updateNavBarVisibility() {
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.main_fragment_container)
+
+        if (currentFragment is RestaurantScreen) {
+            binding.customNavBar.root.visibility = View.GONE
+        } else {
+            binding.customNavBar.root.visibility = View.VISIBLE
         }
     }
 
@@ -63,7 +79,7 @@ class MainActivity : AppCompatActivity() {
         navItems[index].isSelected = true
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.main_container, fragments[index])
+            .replace(R.id.main_fragment_container, fragments[index])
             .commit()
     }
 

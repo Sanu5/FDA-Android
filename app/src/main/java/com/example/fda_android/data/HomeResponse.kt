@@ -1,9 +1,10 @@
 package com.example.fda_android.data
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import kotlinx.parcelize.Parcelize
 
-
+@Keep
 @Parcelize
 data class HomeResponse (
     val data : HomeData,

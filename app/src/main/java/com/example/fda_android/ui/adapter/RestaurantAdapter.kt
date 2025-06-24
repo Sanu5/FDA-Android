@@ -1,23 +1,17 @@
 package com.example.fda_android.ui.adapter
 
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.example.fda_android.R
 import com.example.fda_android.data.RestaurantItem
+import com.example.fda_android.viewholder.RestaurantViewHolder
 
-class RestaurantAdapter (private val restaurantList : List<RestaurantItem>) : RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder>() {
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): RestaurantViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.restaurant_list_item, parent, false)
-        return RestaurantViewHolder(view)
+class RestaurantAdapter (
+    private val restaurantList : List<RestaurantItem>,
+    private val onClick: (String?) -> Unit
+) : RecyclerView.Adapter<RestaurantViewHolder>() {
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RestaurantViewHolder {
+        return RestaurantViewHolder.getViewHolder(parent, onClick)
     }
 
     override fun onBindViewHolder(
@@ -25,25 +19,10 @@ class RestaurantAdapter (private val restaurantList : List<RestaurantItem>) : Re
         position: Int
     ) {
         val restaurant = restaurantList[position]
-        holder.restaurantName.text = restaurant.name
-        holder.restaurantType.text = restaurant.type
-        holder.restaurantRating.text = restaurant.rating
-        holder.restaurantDeliveryFee.text = restaurant.deliveryFee
-
-        Glide.with(holder.itemView.context)
-            .load(restaurant.image)
-            .into(holder.restaurantImage)
+        holder.bind(restaurant)
     }
 
     override fun getItemCount(): Int {
         return restaurantList.size
-    }
-
-    inner class RestaurantViewHolder(restaurantView : View) : RecyclerView.ViewHolder(restaurantView){
-        val restaurantName : TextView = restaurantView.findViewById(R.id.text_title)
-        val restaurantType : TextView = restaurantView.findViewById(R.id.text_cuisine)
-        val restaurantRating : TextView = restaurantView.findViewById(R.id.text_rating)
-        val restaurantDeliveryFee : TextView = restaurantView.findViewById(R.id.text_fee)
-        val restaurantImage : ImageView = restaurantView.findViewById(R.id.image_food)
     }
 }

@@ -65,8 +65,13 @@ class RegistrationActivity: AppCompatActivity() {
                     }
                     is UiState.Success -> {
                         binding.progressBar.visibility = View.GONE
-                        startActivity(Intent(this@RegistrationActivity, MainActivity::class.java))
-                        finish()
+                        Intent(this@RegistrationActivity, MainActivity::class.java).also { intent ->
+                            intent.flags =
+                                Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            startActivity(intent)
+                        }
+//                        startActivity(Intent(this@RegistrationActivity, MainActivity::class.java))
+//                        finish()
                     }
                     is UiState.Error -> {
                         binding.progressBar.visibility = View.GONE
