@@ -61,31 +61,6 @@
             android:textColor="#0E435C" />
 
         <TextView
-            android:id="@+id/tv_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="24dp"
-            android:text="@string/enter_email"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:typeface="sans" />
-
-        <EditText
-            android:id="@+id/et_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="16dp"
-            android:autofillHints="..."
-            android:background="@drawable/bg_edit_text"
-            android:inputType="textEmailAddress"
-            android:paddingHorizontal="24dp"
-            android:paddingVertical="12dp"
-            android:textColor="#0E435C" />
-
-        <TextView
             android:id="@+id/tv_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
