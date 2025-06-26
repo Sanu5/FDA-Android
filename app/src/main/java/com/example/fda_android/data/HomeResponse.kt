@@ -20,19 +20,19 @@ data class HomeData (
 
 @Parcelize
 data class CouponItem (
-    val couponId : String?,
+    val couponId : Int?,
     val discountAmount: String?,
     val description: String?,
-    val logo: Int?
+    val logo: String?
 ) : Parcelable
 
 
 @Parcelize
 data class RestaurantItem (
-    val id : String?,
+    val id : Int?,
     val name : String?,
     val type : String?,
-    val rating : String?,
-    val image : Int?,
+    val rating : Int?,
+    val image : String?,
     val deliveryFee : String
 ) : Parcelable

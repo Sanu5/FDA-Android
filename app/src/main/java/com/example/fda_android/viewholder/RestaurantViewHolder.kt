@@ -23,7 +23,7 @@ class RestaurantViewHolder(val binding: RestaurantListItemBinding, val onClick: 
     fun bind(item: RestaurantItem) {
         binding.textTitle.text = item.name
         binding.textCuisine.text = item.type
-        binding.textRating.text = item.rating
+        binding.textRating.text = item.rating.toString()
         binding.textFee.text = item.deliveryFee
 
         Glide.with(binding.imageFood.context)
@@ -31,7 +31,7 @@ class RestaurantViewHolder(val binding: RestaurantListItemBinding, val onClick: 
             .into(binding.imageFood)
 
         binding.root.setOnClickListener {
-            onClick(item.id)
+            onClick(item.id.toString())
         }
     }
 }

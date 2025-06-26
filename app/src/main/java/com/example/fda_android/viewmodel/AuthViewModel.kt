@@ -55,8 +55,7 @@ class AuthViewModel @Inject constructor(
             try {
                 val request = RegisterRequest(
                     name = name,
-                    email = email,
-                    phoneNumber = phone,
+                    phone_no = phone,
                     password = password,
                     role = UserType.USER
                 )

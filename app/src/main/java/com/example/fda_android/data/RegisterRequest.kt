@@ -7,8 +7,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class RegisterRequest(
     val name : String,
-    val email: String,
-    val phoneNumber: String,
+    val phone_no: String,
     val password: String,
     val role : UserType?
 ) : Parcelable

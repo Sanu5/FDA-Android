@@ -11,6 +11,7 @@ data class RestaurantViewResponse (
 
 @Parcelize
 data class RestaurantData (
+    val restaurantName : String?,
     val restaurantId : String?,
     val restaurantImage : String?,
     val floatingView : FloatingViewItem?,
