@@ -11,6 +11,6 @@ data class LoginResponse(
 
 @Parcelize
 data class LoginRequest(
-    val number: String,
+    val phone_no: String,
     val password: String
 ) : Parcelable

@@ -19,10 +19,10 @@ import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface ApiInterface {
-    @POST("/auth/register")
+    @POST("/register")
     suspend fun registerUser(@Body request: RegisterRequest): Response<AuthResponse>
 
-    @POST("/auth/login")
+    @POST("/login")
     suspend fun loginUser(@Body request: LoginRequest): Response<AuthResponse>
 
     @GET("/home")
@@ -31,7 +31,7 @@ interface ApiInterface {
     @GET("/restaurants")
     suspend fun getRestaurantList(): Response<List<RestaurantItem>>
 
-    @POST("/cart/add")
+    @POST("/cart")
     suspend fun addCartItem(
         @Body addCartItemRequest: AddCartItemRequest,
         @Header("Authorization") token: String
