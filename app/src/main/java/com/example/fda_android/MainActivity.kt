@@ -1,5 +1,6 @@
 package com.example.fda_android
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
@@ -10,6 +11,7 @@ import com.example.fda_android.databinding.ActivityMainBinding
 import com.example.fda_android.fragments.BrowseScreen
 import com.example.fda_android.fragments.HomeScreen
 import com.example.fda_android.fragments.RestaurantScreen
+import com.example.fda_android.utils.openFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -78,9 +80,22 @@ class MainActivity : AppCompatActivity() {
         navItems.forEach { it.isSelected = false }
         navItems[index].isSelected = true
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.main_fragment_container, fragments[index])
-            .commit()
+        val tag = fragments[index].javaClass.simpleName
+        val existingFragment = supportFragmentManager.findFragmentByTag(tag)
+
+        if(existingFragment != null && existingFragment.isVisible) return
+
+        openPage(
+            fragment = fragments[index],
+            tag = fragments[index].javaClass.simpleName,
+            addToBackStack = false,
+            animate = true,
+        )
+    }
+
+    @SuppressLint("CommitTransaction")
+    private fun openPage(fragment : Fragment, tag : String, addToBackStack: Boolean = false, add : Boolean = false, animate : Boolean = false) {
+        supportFragmentManager.beginTransaction().openFragment(fragment = fragment, containerId = R.id.main_fragment_container, tag = tag, addToBackStack = addToBackStack, add = add, animate = animate)
     }
 
     override fun onDestroy() {
