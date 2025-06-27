@@ -43,7 +43,7 @@ interface ApiInterface {
     ): Response<CartResponse>
 
     @PUT("/cart")
-    suspend fun updateCart(
+    suspend fun updateCartItem(
         @Body cartUpdateRequest: CartUpdateRequest,
         @Header("Authorization") token: String
     ): Response<CartResponse>
