@@ -32,51 +32,18 @@ interface ApiInterface {
     suspend fun getRestaurantList(): Response<List<RestaurantItem>>
 
     @POST("/cart")
-    suspend fun addCartItem(
-        @Body addCartItemRequest: AddCartItemRequest,
-        @Header("Authorization") token: String
-    ): Response<CartResponse>
+    suspend fun addCartItem(@Body addCartItemRequest: AddCartItemRequest): Response<CartResponse>
 
     @GET("/cart")
-    suspend fun viewCart(
-        @Header("Authorization") token: String
-    ): Response<CartResponse>
+    suspend fun viewCart(): Response<CartResponse>
 
     @PUT("/cart")
-    suspend fun updateCartItem(
-        @Body cartUpdateRequest: CartUpdateRequest,
-        @Header("Authorization") token: String
-    ): Response<CartResponse>
-
-//    @POST("/orders")
-//    suspend fun placeOrder(): Response<Boolean>
-
-//    @GET("/users")
-//    suspend fun getUserProfile(
-//        @Header("Authorization") token: String
-//    ): Response<UserProfileView>
-//
-//    @PUT("/users")
-//    suspend fun updateUserProfile(
-//        @Header("Authorization") token: String,
-//        @Body updateRequest: UpdateUserProfileRequest
-//    ): Response<UpdateUserProfileResponse>
-//
-//    @POST("/users/reviews")
-//    suspend fun giveReview(
-//        @Header("Authorization") token: String,
-//        @Body reviewRequest: ReviewRequest
-//    ): Response<ReviewRequestResponse>
+    suspend fun updateCartItem(@Body cartUpdateRequest: CartUpdateRequest): Response<CartResponse>
 
     @GET("/restaurants/{id}")
-    suspend fun getRestaurantData(
-        @Path("id") restaurantId: String
-    ): Response<RestaurantViewResponse>
+    suspend fun getRestaurantData(@Path("id") restaurantId: String): Response<RestaurantViewResponse>
 
     @GET("/restaurants/menu/{itemId}")
-    suspend fun getItemData(
-//        @Path("id") restaurantId: String,
-        @Path("itemId") itemId: String?
-    ): Response<ItemResponse>
+    suspend fun getItemData(@Path("itemId") itemId: String?): Response<ItemResponse>
 
 }

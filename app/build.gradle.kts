@@ -67,4 +67,6 @@ dependencies {
     implementation(libs.androidx.databinding.common)
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.fragment:fragment-ktx:1.6.2")
+
+    implementation("com.google.android.material:material:1.12.0")
 }

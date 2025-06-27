@@ -15,7 +15,9 @@ import com.example.fda_android.databinding.FragmentBrowseBinding
 import com.example.fda_android.ui.adapter.RestaurantAdapter
 import com.example.fda_android.utils.UiState
 import com.example.fda_android.viewmodel.BrowseViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class BrowseScreen: Fragment() {
     private val viewModel: BrowseViewModel by viewModels()
     private var _binding: FragmentBrowseBinding? = null

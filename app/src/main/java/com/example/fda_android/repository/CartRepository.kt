@@ -7,18 +7,11 @@ import retrofit2.Response
 import javax.inject.Inject
 
 class CartRepository @Inject constructor(private val apiInterface: ApiInterface) {
-    suspend fun getCartData(token: String): Response<CartResponse>  {
-       return apiInterface.viewCart(token)
+    suspend fun getCartData(): Response<CartResponse>  {
+       return apiInterface.viewCart()
     }
 
-    suspend fun updateItemQuantity(
-        token: String,
-        request: CartUpdateRequest
-    ): Response<CartResponse> {
-        return apiInterface.updateCartItem(
-            cartUpdateRequest = request,
-            token = token
-        )
+    suspend fun updateItemQuantity(request: CartUpdateRequest): Response<CartResponse> {
+        return apiInterface.updateCartItem(cartUpdateRequest = request)
     }
-
 }

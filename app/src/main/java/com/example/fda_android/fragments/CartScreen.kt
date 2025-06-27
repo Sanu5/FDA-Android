@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.fda_android.R
 import com.example.fda_android.data.CartResponse
 import com.example.fda_android.data.ItemData
 import com.example.fda_android.databinding.CartViewBinding
@@ -45,35 +46,26 @@ class CartScreen() : Fragment() {
     }
 
     private fun init(){
-        setupCloseButton()
-        setupCheckoutButton()
-        setupNoteSection()
-        fetchCartData()
+        setListeners()
     }
 
-    private fun setupCloseButton() {
+    private fun setListeners() {
         binding.btnClose.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
-    }
 
-    private fun setupCheckoutButton() {
         binding.checkoutButton.setOnClickListener {
             TODO()
         }
-    }
 
-    private fun setupNoteSection() {
         binding.tvNoteHint.setOnClickListener {
             TODO()
         }
     }
 
-    private fun fetchCartData(token: String) {
-        viewModel.fetchCartData(token)
-    }
-
     private fun observeCartState() {
+        viewModel.fetchCartData()
+
         lifecycleScope.launchWhenStarted {
             viewModel.cartState.collect { state ->
                 when (state) {
@@ -101,17 +93,17 @@ class CartScreen() : Fragment() {
     private fun bindCartData(cartResponse: CartResponse) {
         val cartData = cartResponse.data
         if(cartData != null){
-            binding.restaurantNameCart.text = cartData.restaurantData?.restaurantName ?: "Restaurant"
-            binding.restaurantAddressCart.text = cartData.restaurantData?.floatingView?.address ?: "Address unavailable"
+            binding.restaurantNameCart.text = cartData.restaurantData?.restaurantName
+            binding.restaurantAddressCart.text = cartData.restaurantData?.floatingView?.address
 
-            binding.itemCount.text = "${cartData.cartItemCount ?: "0"} items"
-            binding.tvSubtotalValue.text = cartData.subtotal ?: "0.00"
-            binding.tvNoteHint.text = cartData.noteForRestaurant ?: "Add a note to the order for restaurant"
-            setupCartItems(cartData.itemData ?: emptyList())
+            binding.itemCount.setText(cartData.cartItemCount + getString(R.string.items))
+            binding.tvSubtotalValue.text = cartData.subtotal
+            binding.tvNoteHint.text = cartData.noteForRestaurant
+            setupCartItems(cartData.itemData)
         }
     }
 
-    private fun setupCartItems(items: List<ItemData>){
+    private fun setupCartItems(items: List<ItemData>?){
         binding.cartItemRecycler.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = CartItemAdapter(items){ itemId, newQuantity ->

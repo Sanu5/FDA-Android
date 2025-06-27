@@ -49,7 +49,7 @@ class AuthViewModel @Inject constructor(
         }
     }
 
-    fun register(name: String, phone: String, email: String, password: String) {
+    fun register(name: String, phone: String, password: String) {
         viewModelScope.launch {
             _registerState.value = UiState.Loading
             try {

@@ -19,11 +19,11 @@ class CartViewModel @Inject constructor(
     private val _cartState = MutableStateFlow<UiState<CartResponse>>(UiState.Empty)
     val cartState: StateFlow<UiState<CartResponse>> = _cartState
 
-    fun fetchCartData(token: String) {
+    fun fetchCartData() {
         viewModelScope.launch {
             _cartState.value = UiState.Loading
             try {
-                val response = repository.getCartData(token)
+                val response = repository.getCartData()
                 if (response.isSuccessful && response.body() != null) {
                     _cartState.value = UiState.Success(response.body()!!)
                 } else {
@@ -39,7 +39,7 @@ class CartViewModel @Inject constructor(
         }
     }
 
-    fun updateItemQuantity(token: String, itemId: String, newQuantity: Int) {
+    fun updateItemQuantity(itemId: String?, newQuantity: Int) {
         viewModelScope.launch {
             try {
                 val updateRequest = CartUpdateRequest(
@@ -48,10 +48,10 @@ class CartViewModel @Inject constructor(
                     itemQuantity = newQuantity.toString()
                 )
 
-                val response = repository.updateItemQuantity(token, updateRequest)
+                val response = repository.updateItemQuantity(updateRequest)
 
                 if (response.isSuccessful) {
-                    fetchCartData(token)
+                    fetchCartData()
                 } else {
                     _cartState.value = UiState.Error(
                         message = "Update failed: ${response.message()}"

@@ -9,16 +9,16 @@ import com.example.fda_android.databinding.ItemViewCartBinding
 
 class CartItemViewHolder(
     private val binding: ItemViewCartBinding,
-    private val onQuantityChanged: (itemId: String, newQuantity: Int) -> Unit
+    private val onQuantityChanged: (itemId: String?, newQuantity: Int) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: ItemData) {
-        binding.tvDishName.text = item.itemName
-        binding.tvPrice.text = item.itemPrice
-        binding.tvQuantity.text = item.cartItemCount
+    fun bind(item: ItemData?) {
+        binding.tvDishName.text = item?.itemName
+        binding.tvPrice.text = item?.itemPrice
+        binding.tvQuantity.text = item?.cartItemCount
 
         Glide.with(binding.imgDish.context)
-            .load(item.itemImage)
+            .load(item?.itemImage)
             .into(binding.imgDish)
 
         binding.btnMinus.setOnClickListener {
@@ -30,19 +30,19 @@ class CartItemViewHolder(
         }
     }
 
-    private fun updateQuantity(item: ItemData, delta: Int) {
-        val currentQuantity = item.cartItemCount.toIntOrNull() ?: 0
+    private fun updateQuantity(item: ItemData?, delta: Int) {
+        val currentQuantity = item?.cartItemCount?.toIntOrNull() ?: 0
         val newQuantity = maxOf(1, currentQuantity + delta)
 
         binding.tvQuantity.text = newQuantity.toString()
 
-        onQuantityChanged(item.itemId, newQuantity)
+        onQuantityChanged(item?.itemId, newQuantity)
     }
 
     companion object {
         fun getViewHolder(
             parent: ViewGroup,
-            onQuantityChanged: (itemId: String, newQuantity: Int) -> Unit
+            onQuantityChanged: (itemId: String?, newQuantity: Int) -> Unit
         ): CartItemViewHolder {
             val binding = ItemViewCartBinding.inflate(
                 LayoutInflater.from(parent.context),
