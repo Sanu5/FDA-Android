@@ -3,6 +3,7 @@ package com.example.fda_android.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fda_android.data.CartResponse
+import com.example.fda_android.data.CartUpdateRequest
 import com.example.fda_android.repository.CartRepository
 import com.example.fda_android.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,8 +33,36 @@ class CartViewModel @Inject constructor(
                     )
                 }
             } catch (e: Exception) {
-                _cartState.value = UiState.Error(message = e.localizedMessage ?: "Unknown error occurred")
+                _cartState.value =
+                    UiState.Error(message = e.localizedMessage ?: "Unknown error occurred")
+            }
+        }
+    }
+
+    fun updateItemQuantity(token: String, itemId: String, newQuantity: Int) {
+        viewModelScope.launch {
+            try {
+                val updateRequest = CartUpdateRequest(
+                    restaurantId = "current_restaurant_id",
+                    itemId = itemId,
+                    itemQuantity = newQuantity.toString()
+                )
+
+                val response = repository.updateItemQuantity(token, updateRequest)
+
+                if (response.isSuccessful) {
+                    fetchCartData(token)
+                } else {
+                    _cartState.value = UiState.Error(
+                        message = "Update failed: ${response.message()}"
+                    )
+                }
+            } catch (e: Exception) {
+                _cartState.value = UiState.Error(
+                    message = "Update error: ${e.localizedMessage}"
+                )
             }
         }
     }
 }
+

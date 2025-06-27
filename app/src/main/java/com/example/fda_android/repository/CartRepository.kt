@@ -11,16 +11,14 @@ class CartRepository @Inject constructor(private val apiInterface: ApiInterface)
        return apiInterface.viewCart(token)
     }
 
-//    suspend fun updateItemQuantity(
-//        token: String,
-//        itemId: String,
-//        newQuantity: Int
-//    ): Response<CartUpdateRequest> {
-//        return apiInterface.updateCartItem(
-//            token = token,
-//            itemId = itemId,
-//            quantity = newQuantity
-//        )
-//    }
+    suspend fun updateItemQuantity(
+        token: String,
+        request: CartUpdateRequest
+    ): Response<CartResponse> {
+        return apiInterface.updateCartItem(
+            cartUpdateRequest = request,
+            token = token
+        )
+    }
 
 }

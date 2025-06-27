@@ -35,11 +35,20 @@ class CartScreen() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        init()
+        observeCartState()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun init(){
         setupCloseButton()
         setupCheckoutButton()
         setupNoteSection()
         fetchCartData()
-        observeCartState()
     }
 
     private fun setupCloseButton() {
@@ -60,8 +69,7 @@ class CartScreen() : Fragment() {
         }
     }
 
-    private fun fetchCartData() {
-        val token = "token"
+    private fun fetchCartData(token: String) {
         viewModel.fetchCartData(token)
     }
 
@@ -114,11 +122,6 @@ class CartScreen() : Fragment() {
 
     private fun showEmptyState(){
         binding.emptyStateView.visibility = View.VISIBLE
-        binding.cartContent.visibility = View.GONE
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        binding.clRootCart.visibility = View.GONE
     }
 }
