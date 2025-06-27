@@ -2,6 +2,7 @@ package com.example.fda_android.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.fda_android.data.CartUpdateRequest
 import com.example.fda_android.data.HomeResponse
 import com.example.fda_android.repository.HomeScreenRepository
 import com.example.fda_android.utils.UiState

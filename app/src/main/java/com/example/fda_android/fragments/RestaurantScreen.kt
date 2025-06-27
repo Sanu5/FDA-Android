@@ -17,9 +17,11 @@ import com.example.fda_android.databinding.FragmentRestaurantDetailBinding
 import com.example.fda_android.ui.adapter.MenuItemAdapter
 import com.example.fda_android.utils.UiState
 import com.example.fda_android.viewmodel.RestaurantViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import eightbitlab.com.blurview.BlurView
 import eightbitlab.com.blurview.RenderEffectBlur
 
+@AndroidEntryPoint
 class RestaurantScreen(): Fragment() {
 
     private val viewModel: RestaurantViewModel by viewModels()

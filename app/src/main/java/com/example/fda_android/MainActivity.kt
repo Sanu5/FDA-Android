@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.fda_android.databinding.ActivityMainBinding
 import com.example.fda_android.fragments.BrowseScreen
+import com.example.fda_android.fragments.CartScreen
 import com.example.fda_android.fragments.HomeScreen
 import com.example.fda_android.fragments.RestaurantScreen
 import com.example.fda_android.utils.openFragment
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         listOf(
             HomeScreen(),
             BrowseScreen(),        //Browse
-            HomeScreen(),              //Cart
+            CartScreen(),              //Cart
             RestaurantScreen(),        //Orders
             HomeScreen(),              //Account
         )

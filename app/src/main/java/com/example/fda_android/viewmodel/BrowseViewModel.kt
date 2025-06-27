@@ -16,7 +16,7 @@ class BrowseViewModel @Inject constructor(private val repository: BrowseReposito
     private val _resState: MutableStateFlow<UiState<List<RestaurantItem>>> = MutableStateFlow(UiState.Empty)
     val resState: StateFlow<UiState<List<RestaurantItem>>> = _resState
 
-    private fun fetchRestaurantList() {
+    fun fetchRestaurantList() {
         viewModelScope.launch {
             _resState.value = UiState.Loading
             try {

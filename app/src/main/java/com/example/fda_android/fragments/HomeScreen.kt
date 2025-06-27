@@ -29,57 +29,63 @@ class HomeScreen : Fragment() {
     private var _binding : FragmentHomeScreenBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var drawerLayout: DrawerLayout
-    private lateinit var closeBtn: ImageView
-    private lateinit var darkModeSwitch: SwitchMaterial
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        init()
+        observeHomeScreenResponse()
+    }
 
-        drawerLayout = binding.drawerLayout
-        closeBtn = binding.closeBtn
-        darkModeSwitch = binding.darkModeSwitch
+    private fun init() {
+        setupData()
+        setListeners()
+    }
 
-        closeBtn.setOnClickListener {
-            drawerLayout.closeDrawer(GravityCompat.START)
-        }
-
-        darkModeSwitch.setOnCheckedChangeListener { _, isChecked ->
-            Toast.makeText(requireContext(), if(isChecked) "Dark Mode Enabled" else "Dark Mode Disabled", Toast.LENGTH_SHORT).show()
-        }
-
-        val toolbar: Toolbar = binding.topBar
-        val customview = layoutInflater.inflate(R.layout.toolbar_home_custom_view, toolbar, false)
-        toolbar.addView(customview)
+    private fun setupData() {
+        val customview = layoutInflater.inflate(R.layout.toolbar_home_custom_view, binding.topBar, false)
+        binding.topBar.addView(customview)
 
         customview.findViewById<ImageView>(R.id.menu_icon).setOnClickListener {
-            drawerLayout.openDrawer(GravityCompat.START)
+            binding.drawerLayout.openDrawer(GravityCompat.START)
+        }
+    }
+
+    private fun setListeners() {
+        binding.closeBtn.setOnClickListener {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
         }
 
+        binding.darkModeSwitch.setOnCheckedChangeListener { _, isChecked ->
+            Toast.makeText(requireContext(), if(isChecked) "Dark Mode Enabled" else "Dark Mode Disabled", Toast.LENGTH_SHORT).show()
+        }
+    }
 
-
+    private fun observeHomeScreenResponse() {
         lifecycleScope.launchWhenStarted {
             viewModel.homeState.collect { state ->
                 when (state) {
                     is UiState.Empty -> {
                         binding.progressBar.visibility = View.GONE
                     }
+
                     is UiState.Error -> {
                         binding.progressBar.visibility = View.GONE
-                        Toast.makeText(requireContext(), "Error: ${state.message}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Error: ${state.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
+
                     UiState.Loading -> {
                         binding.progressBar.visibility = View.VISIBLE
                         Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
                     }
+
                     is UiState.Success -> {
                         binding.progressBar.visibility = View.GONE
                         val response = state.data
@@ -125,8 +131,8 @@ class HomeScreen : Fragment() {
     }
 
     fun handleBackPress() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
         } else {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
@@ -135,5 +141,11 @@ class HomeScreen : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        fun newInstance(): HomeScreen {
+            return HomeScreen()
+        }
     }
 }

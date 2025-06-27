@@ -6,8 +6,8 @@ import com.example.fda_android.data.ItemData
 import com.example.fda_android.viewholder.CartItemViewHolder
 
 class CartItemAdapter(
-    private val items: List<ItemData>,
-    private val onQuantityChanged: (itemId: String, newQuantity: Int) -> Unit
+    private val items: List<ItemData>?,
+    private val onQuantityChanged: (itemId: String?, newQuantity: Int) -> Unit
 ) : RecyclerView.Adapter<CartItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartItemViewHolder {
@@ -15,8 +15,8 @@ class CartItemAdapter(
     }
 
     override fun onBindViewHolder(holder: CartItemViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(items?.get(position))
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = items?.size ?: 0
 }
