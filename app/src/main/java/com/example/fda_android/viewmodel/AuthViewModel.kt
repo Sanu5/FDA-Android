@@ -35,7 +35,7 @@ class AuthViewModel @Inject constructor(
                 val request = LoginRequest(phoneNumber, password)
                 val response = repository.loginUser(request)
                 if(response.isSuccessful && response.body() != null) {
-                    tokenManager.saveToken(response.body()!!.token)
+                    tokenManager.saveToken(response.body()!!.data?.token!!)
                     _loginResponse.value = UiState.Success(response.body()!!)
                 } else {
                     _loginResponse.value = UiState.Error(
@@ -61,7 +61,7 @@ class AuthViewModel @Inject constructor(
                 )
                 val response = repository.registerUser(request)
                 if (response.isSuccessful && response.body() != null) {
-                    tokenManager.saveToken(response.body()!!.token)
+                    tokenManager.saveToken(response.body()!!.data?.token!!)
                     _registerState.value = UiState.Success(response.body()!!)
                 } else {
                     _registerState.value = UiState.Error(
