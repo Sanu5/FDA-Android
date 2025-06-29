@@ -16,15 +16,18 @@ import com.example.fda_android.data.RestaurantViewResponse
 import com.example.fda_android.databinding.FragmentRestaurantDetailBinding
 import com.example.fda_android.ui.adapter.MenuItemAdapter
 import com.example.fda_android.utils.UiState
+import com.example.fda_android.viewmodel.CartViewModel
 import com.example.fda_android.viewmodel.RestaurantViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import eightbitlab.com.blurview.BlurView
 import eightbitlab.com.blurview.RenderEffectBlur
+import kotlin.getValue
 
 @AndroidEntryPoint
 class RestaurantScreen(): Fragment() {
 
     private val viewModel: RestaurantViewModel by viewModels()
+    private val cartViewModel: CartViewModel by viewModels()
     private var _binding : FragmentRestaurantDetailBinding? = null
     private val binding get() = _binding!!
 
@@ -92,8 +95,14 @@ class RestaurantScreen(): Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.rvMenuList.adapter = MenuItemAdapter(
             items = response.data.featuredItemsList,
-            onClick = ::onMenuItemClick
+            onItemClick = ::onMenuItemClick,
+            onAddClick = ::onItemAdd,
         )
+    }
+
+    private fun onItemAdd(itemId: String?) {
+        cartViewModel.addCartItem(restaurantId = restaurantId, itemId = itemId, itemQuantity = 1)
+        Toast.makeText(requireContext(), "Item added to cart", Toast.LENGTH_SHORT).show()
     }
 
     private fun onMenuItemClick(itemId: String?) {

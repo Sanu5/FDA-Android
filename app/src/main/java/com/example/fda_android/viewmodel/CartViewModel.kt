@@ -2,6 +2,7 @@ package com.example.fda_android.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.fda_android.data.AddCartItemRequest
 import com.example.fda_android.data.CartResponse
 import com.example.fda_android.data.CartUpdateRequest
 import com.example.fda_android.repository.CartRepository
@@ -43,9 +44,8 @@ class CartViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val updateRequest = CartUpdateRequest(
-                    restaurantId = "current_restaurant_id",
                     itemId = itemId,
-                    itemQuantity = newQuantity.toString()
+                    itemQuantity = newQuantity
                 )
 
                 val response = repository.updateItemQuantity(updateRequest)
@@ -55,6 +55,28 @@ class CartViewModel @Inject constructor(
                 } else {
                     _cartState.value = UiState.Error(
                         message = "Update failed: ${response.message()}"
+                    )
+                }
+            } catch (e: Exception) {
+                _cartState.value = UiState.Error(
+                    message = "Update error: ${e.localizedMessage}"
+                )
+            }
+        }
+    }
+
+    fun addCartItem(restaurantId: String?, itemId: String?, itemQuantity: Int?) {
+        viewModelScope.launch {
+            try {
+                val addRequest = AddCartItemRequest(restaurantId = restaurantId, itemId = itemId, itemQuantity = itemQuantity)
+                val response = repository.addCartItem(addRequest)
+
+                if (response.isSuccessful && response.body() != null) {
+                    _cartState.value = UiState.Success(response.body()!!)
+                } else {
+                    _cartState.value = UiState.Error(
+                        code = response.code(),
+                        message = response.message() ?: "Unknown error occurred"
                     )
                 }
             } catch (e: Exception) {

@@ -7,20 +7,17 @@ import com.bumptech.glide.Glide
 import com.example.fda_android.data.FeaturedItem
 import com.example.fda_android.databinding.RestaurantMenuItemBinding
 
-class MenuItemViewHolder(val binding: RestaurantMenuItemBinding, onClick: (String?) -> Unit) : RecyclerView.ViewHolder(binding.root) {
+class MenuItemViewHolder(val binding: RestaurantMenuItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
     companion object {
-        fun getViewHolder(parent: ViewGroup, onClick: (String?) -> Unit): MenuItemViewHolder {
+        fun getViewHolder(parent: ViewGroup): MenuItemViewHolder {
             return MenuItemViewHolder(
-                binding = RestaurantMenuItemBinding.inflate(LayoutInflater.from(parent.context), parent, false),
-                onClick = {
-                    onClick
-                }
+                binding = RestaurantMenuItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             )
         }
     }
 
-    fun bind(item: FeaturedItem, onClick: (String?) -> Unit) {
+    fun bind(item: FeaturedItem, onItemClick: (String?) -> Unit, onAddClick: (String?) -> Unit) {
         binding.menuItemTitle.text = item.itemName
         binding.tvSubtitle.text = item.itemDesc
         binding.tvPrice.text = item.itemPrice
@@ -30,7 +27,11 @@ class MenuItemViewHolder(val binding: RestaurantMenuItemBinding, onClick: (Strin
             .into(binding.rmDish)
 
         binding.root.setOnClickListener {
-            onClick(item.itemID)
+            onItemClick(item.itemID)
+        }
+
+        binding.btnAdd.setOnClickListener {
+            onAddClick(item.itemID)
         }
     }
 }

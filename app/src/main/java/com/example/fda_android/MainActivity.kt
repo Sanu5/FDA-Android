@@ -89,8 +89,8 @@ class MainActivity : AppCompatActivity() {
         openPage(
             fragment = fragments[index],
             tag = fragments[index].javaClass.simpleName,
-            addToBackStack = false,
-            animate = true,
+            addToBackStack = true,
+            add = true
         )
     }
 
