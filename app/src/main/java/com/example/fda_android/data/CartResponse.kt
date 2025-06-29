@@ -5,8 +5,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class CartResponse (
-    val data : CartData?,
-    val success : Boolean?
+    val success : Boolean?,
+    val data : CartData?
 ) : Parcelable
 
 @Parcelize

@@ -29,7 +29,7 @@ data class CouponItem (
 
 @Parcelize
 data class RestaurantItem (
-    val id : Int?,
+    val id : String?,
     val name : String?,
     val type : String?,
     val rating : Int?,

@@ -5,6 +5,12 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class CartUpdateRequest(
-    val itemId : String?,
-    val itemQuantity : Int?
+    val success: Boolean,
+    val data: CartUpdateData?
+) : Parcelable
+
+@Parcelize
+data class CartUpdateData(
+    val itemId: String?,
+    val itemQuantity: Int?
 ) : Parcelable
