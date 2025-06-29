@@ -5,13 +5,12 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class RestaurantViewResponse (
-    val data : RestaurantData,
-    val success : Boolean
+    val success : Boolean,
+    val data : RestaurantData
 ) : Parcelable
 
 @Parcelize
 data class RestaurantData (
-    val restaurantName : String?,
     val restaurantId : String?,
     val restaurantImage : String?,
     val floatingView : FloatingViewItem?,

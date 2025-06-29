@@ -12,7 +12,7 @@ data class CartResponse (
 @Parcelize
 data class CartData (
     val restaurantData : RestaurantData?,
-    val cartItemCount : String?,
+    val cartItemCount : Int?,
     val noteForRestaurant : String?,
     val noteForDeliveryPartner : String,
     val deliveryType : String,

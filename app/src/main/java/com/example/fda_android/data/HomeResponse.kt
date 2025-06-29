@@ -32,7 +32,7 @@ data class RestaurantItem (
     val id : String?,
     val name : String?,
     val type : String?,
-    val rating : Int?,
+    val rating : String?,
     val image : String?,
     val deliveryFee : String
 ) : Parcelable

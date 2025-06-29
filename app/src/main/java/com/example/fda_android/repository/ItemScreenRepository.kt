@@ -8,7 +8,7 @@ import javax.inject.Inject
 class ItemScreenRepository @Inject constructor(
     private val apiInterface: ApiInterface
 ) {
-    suspend fun getItemData(itemId: String?): Response<ItemResponse> {
-       return apiInterface.getItemData(itemId)
+    suspend fun getItemData(restaurantId: String?, itemId: String?): Response<ItemResponse> {
+       return apiInterface.getItemData(restaurantId, itemId)
     }
 }
