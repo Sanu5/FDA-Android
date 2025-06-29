@@ -111,6 +111,7 @@ class RestaurantScreen(): Fragment() {
         val fragment = ItemScreen().apply {
             arguments = Bundle().apply {
                 putString("itemId", itemId)
+                putString("restaurantId", restaurantId)
             }
         }
 

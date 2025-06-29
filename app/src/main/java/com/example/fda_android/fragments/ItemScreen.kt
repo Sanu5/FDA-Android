@@ -30,6 +30,10 @@ class ItemScreen: Fragment() {
         requireArguments().getString(ARG_ITEM_ID) ?: throw IllegalStateException("Must pass an itemId")
     }
 
+    private val restaurantId: String? by lazy {
+        requireArguments().getString(ARG_RESTAURANT_ID) ?: throw IllegalStateException("Must pass an restaurantId")
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -55,9 +59,7 @@ class ItemScreen: Fragment() {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
-        //TODO add to cart button functionality
-
-        viewmodel.fetchItemData(itemId)
+        viewmodel.fetchItemData(restaurantId, itemId)
 
         lifecycleScope.launch {
             viewmodel.itemState.collect { state ->
@@ -98,11 +100,13 @@ class ItemScreen: Fragment() {
 
     companion object {
         private const val ARG_ITEM_ID = "itemId"
+        private const val ARG_RESTAURANT_ID = "restaurantId"
 
-        fun newInstance(itemId: String): ItemScreen {
+        fun newInstance(restaurantId: String?, itemId: String): ItemScreen {
             return ItemScreen().apply {
                 arguments = Bundle().apply {
                     putString(ARG_ITEM_ID, itemId)
+                    putString(ARG_RESTAURANT_ID, restaurantId)
                 }
             }
         }
