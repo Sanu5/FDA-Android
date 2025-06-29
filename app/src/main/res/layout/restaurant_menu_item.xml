@@ -80,6 +80,8 @@
             android:src="@drawable/ic_add"
             android:contentDescription="@string/add"
             android:elevation="6dp"
+            android:clickable="true"
+            android:focusable="true"
             app:tint="@android:color/white" />
     </FrameLayout>
 
