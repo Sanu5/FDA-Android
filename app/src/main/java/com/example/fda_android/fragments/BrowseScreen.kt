@@ -1,6 +1,7 @@
 package com.example.fda_android.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,8 @@ class BrowseScreen: Fragment() {
     private val viewModel: BrowseViewModel by viewModels()
     private var _binding: FragmentBrowseBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var restaurantAdapter: RestaurantAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,6 +49,7 @@ class BrowseScreen: Fragment() {
                     is UiState.Error -> {
                         binding.progressBar.visibility = View.GONE
                         Toast.makeText(requireContext(), "Error: ${state.message}", Toast.LENGTH_SHORT).show()
+                        Log.e("BrowseScreen", "Error: ${state.message}")
                     }
                     UiState.Loading -> {
                         binding.progressBar.visibility = View.VISIBLE
@@ -54,11 +58,18 @@ class BrowseScreen: Fragment() {
                     is UiState.Success -> {
                         binding.progressBar.visibility = View.GONE
                         val response = state.data
-                        setupRestaurantList(response)
+                        setupRestaurantList(response.data)
                     }
                 }
             }
         }
+
+        restaurantAdapter = RestaurantAdapter(emptyList(), ::onRestaurantClick)
+
+        binding.rxRestaurantList.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.rxRestaurantList.setHasFixedSize(true)
+        binding.rxRestaurantList.adapter = restaurantAdapter
     }
 
     private fun setupRestaurantList(response: List<RestaurantItem>) {

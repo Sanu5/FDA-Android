@@ -57,7 +57,7 @@ class AuthViewModel @Inject constructor(
                     name = name,
                     phone_no = phone,
                     password = password,
-                    role = UserType.USER
+                    role = UserType.user
                 )
                 val response = repository.registerUser(request)
                 if (response.isSuccessful && response.body() != null) {

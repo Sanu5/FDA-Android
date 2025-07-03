@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fda_android.data.CouponItem
 import com.example.fda_android.viewholder.OfferViewHolder
 
-class OfferAdapter(private val offerList : List<CouponItem>) : RecyclerView.Adapter<OfferViewHolder>() {
+class OfferAdapter(private var offerList : List<CouponItem>) : RecyclerView.Adapter<OfferViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OfferViewHolder {
         return OfferViewHolder.getViewHolder(parent)
