@@ -2,7 +2,7 @@ package com.example.fda_android.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.fda_android.data.RestaurantItem
+import com.example.fda_android.data.BrowseScreenResponse
 import com.example.fda_android.repository.BrowseRepository
 import com.example.fda_android.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,8 +13,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BrowseViewModel @Inject constructor(private val repository: BrowseRepository) : ViewModel() {
-    private val _resState: MutableStateFlow<UiState<List<RestaurantItem>>> = MutableStateFlow(UiState.Empty)
-    val resState: StateFlow<UiState<List<RestaurantItem>>> = _resState
+    private val _resState: MutableStateFlow<UiState<BrowseScreenResponse>> = MutableStateFlow(UiState.Empty)
+    val resState: StateFlow<UiState<BrowseScreenResponse>> = _resState
 
     fun fetchRestaurantList() {
         viewModelScope.launch {

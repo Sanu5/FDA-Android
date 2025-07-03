@@ -40,9 +40,9 @@ class RegistrationActivity: AppCompatActivity() {
         }
 
         binding.btContinue.setOnClickListener {
-            val name = binding.etName.text.toString()
-            val phone = binding.etNumber.text.toString()
-            val password = binding.etPassword.text.toString()
+            val name = binding.etName.text.toString().trim()
+            val phone = binding.etNumber.text.toString().trim()
+            val password = binding.etPassword.text.toString().trim()
 
             if (phone.length == 10 && password.length >= 6 && name.isNotEmpty()) {
                 authViewModel.register(
@@ -60,6 +60,7 @@ class RegistrationActivity: AppCompatActivity() {
                 when (state) {
                     is UiState.Loading -> {
                         binding.progressBar.visibility = View.VISIBLE
+                        binding.btContinue.isEnabled = false
                     }
                     is UiState.Success -> {
                         binding.progressBar.visibility = View.GONE
@@ -68,12 +69,13 @@ class RegistrationActivity: AppCompatActivity() {
                                 Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                             startActivity(intent)
                         }
+                        binding.btContinue.isEnabled = true
 //                        startActivity(Intent(this@RegistrationActivity, MainActivity::class.java))
 //                        finish()
                     }
                     is UiState.Error -> {
                         binding.progressBar.visibility = View.GONE
-                        Toast.makeText(this@RegistrationActivity, state.message ?: "Login failed", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@RegistrationActivity, state.message ?: "Registration failed", Toast.LENGTH_SHORT).show()
                     }
 
                     is UiState.Empty -> {

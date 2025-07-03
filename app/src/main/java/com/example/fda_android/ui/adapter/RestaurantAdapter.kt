@@ -6,7 +6,7 @@ import com.example.fda_android.data.RestaurantItem
 import com.example.fda_android.viewholder.RestaurantViewHolder
 
 class RestaurantAdapter (
-    private val restaurantList : List<RestaurantItem>,
+    private var restaurantList : List<RestaurantItem>,
     private val onClick: (String?) -> Unit
 ) : RecyclerView.Adapter<RestaurantViewHolder>() {
 

@@ -29,6 +29,9 @@ class HomeScreen : Fragment() {
     private var _binding : FragmentHomeScreenBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var offerAdapter: OfferAdapter
+    private lateinit var restaurantAdapter: RestaurantAdapter
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
         return binding.root
@@ -43,6 +46,19 @@ class HomeScreen : Fragment() {
     private fun init() {
         setupData()
         setListeners()
+
+        offerAdapter = OfferAdapter(emptyList())
+        restaurantAdapter = RestaurantAdapter(emptyList(), ::onRestaurantClick)
+
+        binding.rvCouponList.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.rvCouponList.setHasFixedSize(true)
+        binding.rvCouponList.adapter = offerAdapter
+
+        binding.rxRestaurantList.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.rxRestaurantList.setHasFixedSize(true)
+        binding.rxRestaurantList.adapter = restaurantAdapter
     }
 
     private fun setupData() {
@@ -98,22 +114,26 @@ class HomeScreen : Fragment() {
     }
 
     private fun setupOfferList(response: HomeResponse) {
-        binding.rvCouponList.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.rvCouponList.adapter = OfferAdapter(response.data.couponView)
+        binding.rvCouponList.post {
+            binding.rvCouponList.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            binding.rvCouponList.adapter = OfferAdapter(response.data.couponView)
+        }
     }
 
     private fun setupRestaurantList(response: HomeResponse){
-        binding.rxRestaurantList.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.rxRestaurantList.adapter = RestaurantAdapter(
-            restaurantList = response.data.restaurantList,
-            onClick = ::onRestaurantClick
-        )
+        binding.rxRestaurantList.post {
+            binding.rxRestaurantList.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            binding.rxRestaurantList.adapter = RestaurantAdapter(
+                restaurantList = response.data.restaurantList,
+                onClick = ::onRestaurantClick
+            )
+        }
     }
 
     private fun onRestaurantClick(restaurantId: String?) {
-        if (restaurantId != null) return
+        if (restaurantId == null) return
 
         val fragment = RestaurantScreen().apply {
             arguments = Bundle().apply {

@@ -23,7 +23,8 @@ class TokenManager @Inject constructor(@ApplicationContext context: Context) {
     }
 
     fun clearToken() {
-        prefs.edit { remove(USER_TOKEN) }
+        prefs.edit { remove(USER_TOKEN)
+        }
     }
 
 }

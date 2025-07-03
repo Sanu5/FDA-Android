@@ -80,7 +80,7 @@
             android:layout_marginTop="16dp"
             android:autofillHints="..."
             android:background="@drawable/bg_edit_text"
-            android:inputType="text"
+            android:inputType="textPassword"
             android:paddingHorizontal="24dp"
             android:paddingVertical="12dp"
             android:textColor="#0E435C" />
