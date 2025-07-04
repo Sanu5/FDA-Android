@@ -11,6 +11,7 @@ import com.example.fda_android.databinding.ActivityMainBinding
 import com.example.fda_android.fragments.BrowseScreen
 import com.example.fda_android.fragments.CartScreen
 import com.example.fda_android.fragments.HomeScreen
+import com.example.fda_android.fragments.ItemScreen
 import com.example.fda_android.fragments.RestaurantScreen
 import com.example.fda_android.utils.openFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -70,7 +71,7 @@ class MainActivity : AppCompatActivity() {
     private fun updateNavBarVisibility() {
         val currentFragment = supportFragmentManager.findFragmentById(R.id.main_fragment_container)
 
-        if (currentFragment is RestaurantScreen) {
+        if (currentFragment is RestaurantScreen || currentFragment is ItemScreen || currentFragment is CartScreen) {
             binding.customNavBar.root.visibility = View.GONE
         } else {
             binding.customNavBar.root.visibility = View.VISIBLE

@@ -15,8 +15,8 @@ data class CartData (
     val cartItemCount : Int?,
     val noteForRestaurant : String?,
     val noteForDeliveryPartner : String,
-    val deliveryType : String,
-    val scheduledDeliveryTime : String,
+    val deliveryType : String?,
+    val scheduledDeliveryTime : String?,
     val subtotal : String?,
     val itemData: List<ItemData>?
 ) : Parcelable

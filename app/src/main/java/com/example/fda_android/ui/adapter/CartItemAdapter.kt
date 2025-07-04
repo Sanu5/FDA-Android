@@ -11,11 +11,11 @@ class CartItemAdapter(
 ) : RecyclerView.Adapter<CartItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartItemViewHolder {
-        return CartItemViewHolder.getViewHolder(parent, onQuantityChanged)
+        return CartItemViewHolder.getViewHolder(parent)
     }
 
     override fun onBindViewHolder(holder: CartItemViewHolder, position: Int) {
-        holder.bind(items?.get(position))
+        holder.bind(items?.get(position), onQuantityChanged)
     }
 
     override fun getItemCount(): Int = items?.size ?: 0

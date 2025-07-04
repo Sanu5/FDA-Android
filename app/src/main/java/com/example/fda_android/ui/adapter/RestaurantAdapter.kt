@@ -11,7 +11,7 @@ class RestaurantAdapter (
 ) : RecyclerView.Adapter<RestaurantViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RestaurantViewHolder {
-        return RestaurantViewHolder.getViewHolder(parent, onClick)
+        return RestaurantViewHolder.getViewHolder(parent)
     }
 
     override fun onBindViewHolder(
@@ -19,7 +19,7 @@ class RestaurantAdapter (
         position: Int
     ) {
         val restaurant = restaurantList[position]
-        holder.bind(restaurant)
+        holder.bind(restaurant, onClick)
     }
 
     override fun getItemCount(): Int {

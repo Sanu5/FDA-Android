@@ -1,6 +1,7 @@
 package com.example.fda_android.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,8 @@ class CartScreen() : Fragment() {
     private val viewModel: CartViewModel by viewModels()
     private var _binding: CartViewBinding? = null
     private val binding get() = _binding!!
+    
+    private lateinit var cartItemAdapter: CartItemAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,6 +50,17 @@ class CartScreen() : Fragment() {
 
     private fun init(){
         setListeners()
+
+        cartItemAdapter = CartItemAdapter(
+            emptyList(),
+            onQuantityChanged = { itemId, newQuantity ->
+                viewModel.updateItemQuantity(itemId, newQuantity)
+            }
+        )
+        binding.cartItemRecycler.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.cartItemRecycler.setHasFixedSize(true)
+        binding.cartItemRecycler.adapter = cartItemAdapter
     }
 
     private fun setListeners() {
@@ -76,6 +90,7 @@ class CartScreen() : Fragment() {
                     is UiState.Error -> {
                         binding.progressBar.visibility = View.GONE
                         Toast.makeText(requireContext(), "Error: ${state.message}", Toast.LENGTH_SHORT).show()
+                        Log.e("CartScreen", "Error: ${state.message}")
                     }
                     UiState.Loading -> {
                         binding.progressBar.visibility = View.VISIBLE

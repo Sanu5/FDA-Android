@@ -9,10 +9,9 @@ import com.example.fda_android.databinding.ItemViewCartBinding
 
 class CartItemViewHolder(
     private val binding: ItemViewCartBinding,
-    private val onQuantityChanged: (itemId: String?, newQuantity: Int) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: ItemData?) {
+    fun bind(item: ItemData?, onQuantityChanged: (String?, Int) -> Unit) {
         binding.tvDishName.text = item?.itemName
         binding.tvPrice.text = item?.itemPrice
         binding.tvQuantity.text = item?.cartItemCount
@@ -22,15 +21,15 @@ class CartItemViewHolder(
             .into(binding.imgDish)
 
         binding.btnMinus.setOnClickListener {
-            updateQuantity(item, -1)
+            updateQuantity(item, -1, onQuantityChanged)
         }
 
         binding.btnPlus.setOnClickListener {
-            updateQuantity(item, 1)
+            updateQuantity(item, 1, onQuantityChanged)
         }
     }
 
-    private fun updateQuantity(item: ItemData?, delta: Int) {
+    private fun updateQuantity(item: ItemData?, delta: Int, onQuantityChanged: (itemId: String?, newQuantity: Int) -> Unit) {
         val currentQuantity = item?.cartItemCount?.toIntOrNull() ?: 0
         val newQuantity = maxOf(1, currentQuantity + delta)
 
@@ -40,16 +39,10 @@ class CartItemViewHolder(
     }
 
     companion object {
-        fun getViewHolder(
-            parent: ViewGroup,
-            onQuantityChanged: (itemId: String?, newQuantity: Int) -> Unit
-        ): CartItemViewHolder {
-            val binding = ItemViewCartBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
+        fun getViewHolder(parent: ViewGroup): CartItemViewHolder {
+            return CartItemViewHolder(
+                binding = ItemViewCartBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             )
-            return CartItemViewHolder(binding, onQuantityChanged)
         }
     }
 }
