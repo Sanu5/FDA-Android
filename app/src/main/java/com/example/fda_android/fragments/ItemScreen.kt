@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.example.fda_android.data.ItemData
 import com.example.fda_android.databinding.ItemViewBinding
 import com.example.fda_android.utils.UiState
+import com.example.fda_android.viewmodel.CartViewModel
 import com.example.fda_android.viewmodel.ItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import eightbitlab.com.blurview.BlurView
@@ -23,6 +24,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class ItemScreen: Fragment() {
     private val viewmodel: ItemViewModel by viewModels()
+    private val cartViewModel: CartViewModel by viewModels()
     private var _binding: ItemViewBinding? = null
     private val binding get() = _binding!!
 
@@ -46,7 +48,33 @@ class ItemScreen: Fragment() {
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        init()
+        observeItemDataResponse()
+    }
 
+    @RequiresApi(Build.VERSION_CODES.S)
+    private fun init() {
+        setupBlurView()
+        setupListeners()
+    }
+
+    private fun setupListeners() {
+        binding.btnBack.setOnClickListener {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
+
+        binding.btnAdd.setOnClickListener {
+            onItemAdd(itemId)
+        }
+    }
+
+    private fun onItemAdd(itemId: String?) {
+        cartViewModel.addCartItem(restaurantId = restaurantId, itemId = itemId, itemQuantity = 1)
+        Toast.makeText(requireContext(), "Item added to cart", Toast.LENGTH_SHORT).show()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.S)
+    private fun setupBlurView() {
         val blurView: BlurView = binding.blurView
         val decor = requireActivity().window.decorView as ViewGroup
         val windowBackground = requireActivity().window.decorView.background
@@ -54,11 +82,9 @@ class ItemScreen: Fragment() {
             .setFrameClearDrawable(windowBackground)
             .setBlurRadius(3f)
             .setBlurAutoUpdate(true)
+    }
 
-        binding.btnBack.setOnClickListener {
-            requireActivity().onBackPressedDispatcher.onBackPressed()
-        }
-
+    private fun observeItemDataResponse() {
         viewmodel.fetchItemData(restaurantId, itemId)
 
         lifecycleScope.launch {
@@ -67,16 +93,23 @@ class ItemScreen: Fragment() {
                     is UiState.Empty -> {
                         binding.progressBar.visibility = View.GONE
                     }
+
                     is UiState.Loading -> {
                         binding.progressBar.visibility = View.VISIBLE
                     }
+
                     is UiState.Success -> {
                         binding.progressBar.visibility = View.GONE
                         setupItemDetail(state.data.data)
                     }
+
                     is UiState.Error -> {
                         binding.progressBar.visibility = View.GONE
-                        Toast.makeText(requireContext(), state.message ?: "Add to Cart failed", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            state.message ?: "Add to Cart failed",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }

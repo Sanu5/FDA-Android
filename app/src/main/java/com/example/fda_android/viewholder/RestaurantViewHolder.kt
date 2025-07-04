@@ -7,20 +7,17 @@ import com.bumptech.glide.Glide
 import com.example.fda_android.data.RestaurantItem
 import com.example.fda_android.databinding.RestaurantListItemBinding
 
-class RestaurantViewHolder(val binding: RestaurantListItemBinding, val onClick: (String?) -> Unit): RecyclerView.ViewHolder(binding.root) {
+class RestaurantViewHolder(val binding: RestaurantListItemBinding): RecyclerView.ViewHolder(binding.root) {
 
     companion object {
-        fun getViewHolder(parent: ViewGroup, onClick: (String?) -> Unit): RestaurantViewHolder {
+        fun getViewHolder(parent: ViewGroup): RestaurantViewHolder {
             return RestaurantViewHolder(
-                binding = RestaurantListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false),
-                onClick = {
-                    onClick
-                }
+                binding = RestaurantListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             )
         }
     }
 
-    fun bind(item: RestaurantItem) {
+    fun bind(item: RestaurantItem, onClick: (String) -> Unit) {
         binding.textTitle.text = item.name
         binding.textCuisine.text = item.type
         binding.textRating.text = item.rating.toString()
