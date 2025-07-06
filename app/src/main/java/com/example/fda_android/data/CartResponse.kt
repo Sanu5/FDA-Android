@@ -11,7 +11,7 @@ data class CartResponse (
 
 @Parcelize
 data class CartData (
-    val restaurantData : RestaurantData?,
+    val restaurantData : RestaurantCartData?,
     val cartItemCount : Int?,
     val noteForRestaurant : String?,
     val noteForDeliveryPartner : String,
@@ -19,4 +19,12 @@ data class CartData (
     val scheduledDeliveryTime : String?,
     val subtotal : String?,
     val itemData: List<ItemData>?
+) : Parcelable
+
+@Parcelize
+data class RestaurantCartData (
+    val restaurantId: String,
+    val restaurantImage: String,
+    val restaurantName: String,
+    val address: String
 ) : Parcelable

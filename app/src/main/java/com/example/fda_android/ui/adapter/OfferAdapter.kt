@@ -17,4 +17,9 @@ class OfferAdapter(private var offerList : List<CouponItem>) : RecyclerView.Adap
     }
 
     override fun getItemCount(): Int = offerList.size
+
+    fun updateData(newList: List<CouponItem>) {
+        offerList = newList
+        notifyDataSetChanged()
+    }
 }

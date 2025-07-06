@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView.HORIZONTAL
+import androidx.recyclerview.widget.RecyclerView.VERTICAL
 import com.example.fda_android.R
 import com.example.fda_android.data.HomeResponse
 import com.example.fda_android.databinding.FragmentHomeScreenBinding
@@ -50,15 +52,17 @@ class HomeScreen : Fragment() {
         offerAdapter = OfferAdapter(emptyList())
         restaurantAdapter = RestaurantAdapter(emptyList(), ::onRestaurantClick)
 
-        binding.rvCouponList.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.rvCouponList.setHasFixedSize(true)
-        binding.rvCouponList.adapter = offerAdapter
+        binding.rvCouponList.apply {
+            layoutManager = LinearLayoutManager(requireContext(), HORIZONTAL, false)
+            setHasFixedSize(true)
+            adapter = offerAdapter
+        }
 
-        binding.rxRestaurantList.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.rxRestaurantList.setHasFixedSize(true)
-        binding.rxRestaurantList.adapter = restaurantAdapter
+        binding.rvRestaurantList.apply {
+            layoutManager = LinearLayoutManager(requireContext(), VERTICAL, false)
+            setHasFixedSize(true)
+            adapter = restaurantAdapter
+        }
     }
 
     private fun setupData() {
@@ -81,6 +85,8 @@ class HomeScreen : Fragment() {
     }
 
     private fun observeHomeScreenResponse() {
+        viewModel.fetchHomeData()
+
         lifecycleScope.launchWhenStarted {
             viewModel.homeState.collect { state ->
                 when (state) {
@@ -114,22 +120,11 @@ class HomeScreen : Fragment() {
     }
 
     private fun setupOfferList(response: HomeResponse) {
-        binding.rvCouponList.post {
-            binding.rvCouponList.layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            binding.rvCouponList.adapter = OfferAdapter(response.data.couponView)
-        }
+        offerAdapter.updateData(response.data.couponView)
     }
 
     private fun setupRestaurantList(response: HomeResponse){
-        binding.rxRestaurantList.post {
-            binding.rxRestaurantList.layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            binding.rxRestaurantList.adapter = RestaurantAdapter(
-                restaurantList = response.data.restaurantList,
-                onClick = ::onRestaurantClick
-            )
-        }
+        restaurantAdapter.updateData(response.data.restaurantList)
     }
 
     private fun onRestaurantClick(restaurantId: String?) {

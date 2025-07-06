@@ -11,7 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.fda_android.R
+import com.example.fda_android.data.RestaurantData
 import com.example.fda_android.data.RestaurantViewResponse
 import com.example.fda_android.databinding.FragmentRestaurantDetailBinding
 import com.example.fda_android.ui.adapter.MenuItemAdapter
@@ -31,6 +33,8 @@ class RestaurantScreen(): Fragment() {
     private var _binding : FragmentRestaurantDetailBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var menuAdapter: MenuItemAdapter
+
     private val restaurantId: String? by lazy {
         requireArguments().getString("restaurantId") ?: throw IllegalStateException("Must pass a restaurantId")
     }
@@ -48,22 +52,27 @@ class RestaurantScreen(): Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.fetchRestaurantData(restaurantId!!)
+        setupToolbarAndBlur()
+        setupRecyclerView()
+        observeRestaurantResponse()
+    }
 
-        val blurView: BlurView = binding.blurView
+    private fun setupRecyclerView() {
+        menuAdapter = MenuItemAdapter(
+            items = emptyList(),
+            onItemClick = ::onMenuItemClick,
+            onAddClick = ::onItemAdd
+        )
 
-        val decor = requireActivity().window.decorView as ViewGroup
-
-        val windowBackground = requireActivity().window.decorView.background
-
-        binding.toolbar.setNavigationOnClickListener {
-            requireActivity().onBackPressedDispatcher.onBackPressed()
+        binding.rvMenuList.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            setHasFixedSize(true)
+            adapter = menuAdapter
         }
+    }
 
-        blurView.setupWith(decor, RenderEffectBlur())
-            .setFrameClearDrawable(windowBackground)
-            .setBlurRadius(3f)
-            .setBlurAutoUpdate(true)
+    private fun observeRestaurantResponse() {
+        viewModel.fetchRestaurantData(restaurantId!!)
 
         lifecycleScope.launchWhenStarted {
             viewModel.restaurantState.collect { state ->
@@ -71,23 +80,57 @@ class RestaurantScreen(): Fragment() {
                     is UiState.Empty -> {
                         binding.progressBar.visibility = View.GONE
                     }
+
                     is UiState.Error -> {
                         binding.progressBar.visibility = View.GONE
-                        Toast.makeText(requireContext(), "Error: ${state.message}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Error: ${state.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
+
                     UiState.Loading -> {
                         binding.progressBar.visibility = View.VISIBLE
                         Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
                     }
+
                     is UiState.Success -> {
                         binding.progressBar.visibility = View.GONE
                         val response = state.data
-                        setupItemList(response)
+                        menuAdapter.updateData(response.data.featuredItemsList)
+                        setupView(response.data)
                     }
                 }
             }
         }
+    }
 
+    @RequiresApi(Build.VERSION_CODES.S)
+    private fun setupToolbarAndBlur() {
+        binding.toolbar.setNavigationOnClickListener {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
+
+        val decor = requireActivity().window.decorView as ViewGroup
+        val windowBackground = requireActivity().window.decorView.background
+        binding.blurView.setupWith(decor, RenderEffectBlur())
+            .setFrameClearDrawable(windowBackground)
+            .setBlurRadius(3f)
+            .setBlurAutoUpdate(true)
+    }
+
+    private fun setupView(response: RestaurantData) {
+        Glide.with(binding.ivMainFood.context).clear(binding.ivMainFood)
+        Glide.with(binding.ivMainFood.context)
+            .load(response.restaurantImage)
+            .into(binding.ivMainFood)
+
+        binding.tvRestaurantName.text = response.floatingView?.name
+        binding.tvRestaurantAddress.text = response.floatingView?.address
+        binding.tvDeliveryFee.text = "Delivery Fee\n$${response.floatingView?.deliveryTime}"
+        binding.tvDeliveryTime.text = "Delivery Time\n${response.floatingView?.deliveryTime}"
+        binding.tvRating.text = "Rating/Review\n${response.floatingView?.rating}"
     }
 
     private fun setupItemList(response: RestaurantViewResponse) {

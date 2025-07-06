@@ -6,7 +6,7 @@ import com.example.fda_android.data.FeaturedItem
 import com.example.fda_android.viewholder.MenuItemViewHolder
 
 class MenuItemAdapter(
-    private val items : List<FeaturedItem>,
+    private var items : List<FeaturedItem>,
     private val onItemClick: (String?) -> Unit,
     private val onAddClick: (String?) -> Unit
 ) : RecyclerView.Adapter<MenuItemViewHolder>() {
@@ -22,5 +22,10 @@ class MenuItemAdapter(
 
     override fun getItemCount(): Int {
         return items.size
+    }
+
+    fun updateData(newItems: List<FeaturedItem>) {
+        items = newItems
+        notifyDataSetChanged()
     }
 }
