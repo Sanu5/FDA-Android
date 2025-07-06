@@ -108,7 +108,7 @@ class CartScreen() : Fragment() {
     private fun bindCartData(cartResponse: CartResponse) {
         val cartData = cartResponse.data
         if(cartData != null){
-            binding.restaurantAddressCart.text = cartData.restaurantData?.floatingView?.address
+            binding.restaurantAddressCart.text = cartData.restaurantData?.address
 
             binding.itemCount.setText(cartData.cartItemCount.toString() + getString(R.string.items))
             binding.tvSubtotalValue.text = cartData.subtotal

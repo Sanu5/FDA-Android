@@ -1,5 +1,6 @@
 package com.example.fda_android.viewholder
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +24,8 @@ class RestaurantViewHolder(val binding: RestaurantListItemBinding): RecyclerView
         binding.textRating.text = item.rating.toString()
         binding.textFee.text = item.deliveryFee
 
+        Glide.with(binding.imageFood.context).clear(binding.imageFood)
+
         Glide.with(binding.imageFood.context)
             .load(item.image)
             .into(binding.imageFood)
@@ -30,5 +33,7 @@ class RestaurantViewHolder(val binding: RestaurantListItemBinding): RecyclerView
         binding.root.setOnClickListener {
             onClick(item.id.toString())
         }
+
+        Log.d("Adapter", "Binding restaurant #$position → ${item.image}")
     }
 }

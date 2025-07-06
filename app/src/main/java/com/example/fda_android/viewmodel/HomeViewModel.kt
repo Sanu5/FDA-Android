@@ -21,7 +21,7 @@ class HomeViewModel @Inject constructor(private val repository: HomeScreenReposi
         fetchHomeData()
     }
 
-    private fun fetchHomeData() {
+    fun fetchHomeData() {
         viewModelScope.launch {
             _homeState.value = UiState.Loading
             try {

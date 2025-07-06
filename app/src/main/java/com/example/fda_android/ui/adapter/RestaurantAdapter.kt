@@ -14,15 +14,17 @@ class RestaurantAdapter (
         return RestaurantViewHolder.getViewHolder(parent)
     }
 
-    override fun onBindViewHolder(
-        holder: RestaurantViewHolder,
-        position: Int
-    ) {
+    override fun onBindViewHolder(holder: RestaurantViewHolder, position: Int) {
         val restaurant = restaurantList[position]
         holder.bind(restaurant, onClick)
     }
 
     override fun getItemCount(): Int {
         return restaurantList.size
+    }
+
+    fun updateData(newList: List<RestaurantItem>) {
+        restaurantList = newList
+        notifyDataSetChanged()
     }
 }
