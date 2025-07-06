@@ -1,6 +1,5 @@
 package com.example.fda_android.viewholder
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -33,7 +32,5 @@ class RestaurantViewHolder(val binding: RestaurantListItemBinding): RecyclerView
         binding.root.setOnClickListener {
             onClick(item.id.toString())
         }
-
-        Log.d("Adapter", "Binding restaurant #$position → ${item.image}")
     }
 }

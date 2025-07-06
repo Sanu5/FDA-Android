@@ -22,13 +22,14 @@ data class CustomizationQuestion(
 
 @Parcelize
 data class ItemData(
-    val customizationQuestions: List<CustomizationQuestion>,
-    val itemDescription: String,
-    val itemId: String,
-    val itemImage: String,
+    val itemId: Int,
     val itemName: String,
+    val itemImage: String,
+    val cartItemCount: Int,
+//    val customizationQuestions: List<CustomizationQuestion>?,
+    val itemDescription: String,
     val itemPrice: String,
-    val cartItemCount: String
+
 ) : Parcelable
 
 

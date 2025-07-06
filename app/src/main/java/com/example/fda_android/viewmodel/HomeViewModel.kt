@@ -1,8 +1,8 @@
 package com.example.fda_android.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.fda_android.data.CartUpdateRequest
 import com.example.fda_android.data.HomeResponse
 import com.example.fda_android.repository.HomeScreenRepository
 import com.example.fda_android.utils.UiState
@@ -26,6 +26,7 @@ class HomeViewModel @Inject constructor(private val repository: HomeScreenReposi
             _homeState.value = UiState.Loading
             try {
                 val response = repository.getHomeScreenData()
+                Log.d("HomeViewModel", "Response: ${response.body()}")
                 if (response.isSuccessful && response.body() != null) {
                     _homeState.value = UiState.Success(response.body()!!)
                 } else {
