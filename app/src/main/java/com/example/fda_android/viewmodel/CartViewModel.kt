@@ -1,5 +1,6 @@
 package com.example.fda_android.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fda_android.data.AddCartItemRequest
@@ -69,7 +70,11 @@ class CartViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val addRequest = AddCartItemRequest(restaurantId = restaurantId, itemId = itemId, itemQuantity = itemQuantity)
+                Log.d("CartViewModel", "Request: $addRequest")
+
                 val response = repository.addCartItem(addRequest)
+                Log.d("CartViewModel", "Response: $response")
+                Log.d("CartViewModel", "Response Body: ${response.body()}")
 
                 if (response.isSuccessful && response.body() != null) {
                     _cartState.value = UiState.Success(response.body()!!)

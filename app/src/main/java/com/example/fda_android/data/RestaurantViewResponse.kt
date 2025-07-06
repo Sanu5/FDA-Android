@@ -21,7 +21,7 @@ data class RestaurantData (
 data class FloatingViewItem (
     val name : String?,
     val address : String?,
-    val logo : String?,
+    val deliveryFee : String?,
     val deliveryTime : String?,
     val rating : String?
 ) : Parcelable

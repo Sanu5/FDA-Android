@@ -128,7 +128,7 @@ class RestaurantScreen(): Fragment() {
 
         binding.tvRestaurantName.text = response.floatingView?.name
         binding.tvRestaurantAddress.text = response.floatingView?.address
-        binding.tvDeliveryFee.text = "Delivery Fee\n$${response.floatingView?.deliveryTime}"
+        binding.tvDeliveryFee.text = "Delivery Fee\n$${response.floatingView?.deliveryFee}"
         binding.tvDeliveryTime.text = "Delivery Time\n${response.floatingView?.deliveryTime}"
         binding.tvRating.text = "Rating/Review\n${response.floatingView?.rating}"
     }

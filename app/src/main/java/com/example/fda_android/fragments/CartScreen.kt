@@ -85,7 +85,7 @@ class CartScreen() : Fragment() {
                 when (state) {
                     is UiState.Empty -> {
                         binding.progressBar.visibility = View.GONE
-                        showEmptyState()
+                        //showEmptyState()
                     }
                     is UiState.Error -> {
                         binding.progressBar.visibility = View.GONE
@@ -108,12 +108,14 @@ class CartScreen() : Fragment() {
     private fun bindCartData(cartResponse: CartResponse) {
         val cartData = cartResponse.data
         if(cartData != null){
+            binding.restaurantNameCart.text = cartData.restaurantData?.restaurantName
             binding.restaurantAddressCart.text = cartData.restaurantData?.address
 
-            binding.itemCount.setText(cartData.cartItemCount.toString() + getString(R.string.items))
+            binding.itemCount.setText(cartData.cartItemCount.toString() + " " + getString(R.string.items))
             binding.tvSubtotalValue.text = cartData.subtotal
-            binding.tvNoteHint.text = cartData.noteForRestaurant
-            setupCartItems(cartData.itemData)
+//            binding.tvNoteHint.text = cartData.noteForRestaurant
+            Log.d("CartScreen", "Cart Data: $cartData")
+            setupCartItems(cartData.items)
         }
     }
 
