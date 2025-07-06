@@ -34,5 +34,6 @@ data class RestaurantItem (
     val type : String?,
     val rating : String?,
     val image : String?,
-    val deliveryFee : String
+    val deliveryFee : String?,
+    val deliveryTime : String?
 ) : Parcelable

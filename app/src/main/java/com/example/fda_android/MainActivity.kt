@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity() {
             HomeScreen(),
             BrowseScreen(),        //Browse
             CartScreen(),              //Cart
-            RestaurantScreen(),        //Orders
             HomeScreen(),              //Account
         )
     }
@@ -44,7 +43,6 @@ class MainActivity : AppCompatActivity() {
             binding.customNavBar.navHome,
             binding.customNavBar.navBrowse,
             binding.customNavBar.navCart,
-            binding.customNavBar.navOrders,
             binding.customNavBar.navAccount
         )
 

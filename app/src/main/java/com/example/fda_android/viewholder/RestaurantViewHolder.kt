@@ -21,7 +21,7 @@ class RestaurantViewHolder(val binding: RestaurantListItemBinding): RecyclerView
         binding.textTitle.text = item.name
         binding.textCuisine.text = item.type
         binding.textRating.text = item.rating.toString()
-        binding.textFee.text = item.deliveryFee
+        binding.textFee.text = "$ " + item.deliveryFee + " Delivery Fee"
 
         Glide.with(binding.imageFood.context).clear(binding.imageFood)
 
