@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.example.fda_android.R
 import com.example.fda_android.data.RestaurantData
 import com.example.fda_android.data.RestaurantViewResponse
+import com.example.fda_android.databinding.ActivityMainBinding
 import com.example.fda_android.databinding.FragmentRestaurantDetailBinding
 import com.example.fda_android.ui.adapter.MenuItemAdapter
 import com.example.fda_android.utils.UiState
@@ -33,6 +34,9 @@ class RestaurantScreen(): Fragment() {
     private var _binding : FragmentRestaurantDetailBinding? = null
     private val binding get() = _binding!!
 
+    private var _mainBinding: ActivityMainBinding? = null
+    private val mainBinding get() = _mainBinding!!
+
     private lateinit var menuAdapter: MenuItemAdapter
 
     private val restaurantId: String? by lazy {
@@ -45,12 +49,15 @@ class RestaurantScreen(): Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentRestaurantDetailBinding.inflate(inflater, container, false)
+        _mainBinding = ActivityMainBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        mainBinding.customNavBar.root.visibility = View.GONE
 
         setupToolbarAndBlur()
         setupRecyclerView()
@@ -83,16 +90,12 @@ class RestaurantScreen(): Fragment() {
 
                     is UiState.Error -> {
                         binding.progressBar.visibility = View.GONE
-                        Toast.makeText(
-                            requireContext(),
-                            "Error: ${state.message}",
-                            Toast.LENGTH_SHORT
-                        ).show()
+//                        Toast.makeText(requireContext(), "Error: ${state.message}", Toast.LENGTH_SHORT).show()
                     }
 
                     UiState.Loading -> {
                         binding.progressBar.visibility = View.VISIBLE
-                        Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
                     }
 
                     is UiState.Success -> {
@@ -118,6 +121,7 @@ class RestaurantScreen(): Fragment() {
             .setFrameClearDrawable(windowBackground)
             .setBlurRadius(3f)
             .setBlurAutoUpdate(true)
+
     }
 
     private fun setupView(response: RestaurantData) {
@@ -131,16 +135,6 @@ class RestaurantScreen(): Fragment() {
         binding.tvDeliveryFee.text = "Delivery Fee\n$${response.floatingView?.deliveryFee}"
         binding.tvDeliveryTime.text = "Delivery Time\n${response.floatingView?.deliveryTime}"
         binding.tvRating.text = "Rating/Review\n${response.floatingView?.rating}"
-    }
-
-    private fun setupItemList(response: RestaurantViewResponse) {
-        binding.rvMenuList.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.rvMenuList.adapter = MenuItemAdapter(
-            items = response.data.featuredItemsList,
-            onItemClick = ::onMenuItemClick,
-            onAddClick = ::onItemAdd,
-        )
     }
 
     private fun onItemAdd(itemId: String?) {
