@@ -39,6 +39,13 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        openPage(
+            fragment = HomeScreen(),
+            tag = HomeScreen::class.java.simpleName,
+            addToBackStack = false,
+            add = false
+        )
+
         navItems = listOf(
             binding.customNavBar.navHome,
             binding.customNavBar.navBrowse,
@@ -80,6 +87,12 @@ class MainActivity : AppCompatActivity() {
         navItems.forEach { it.isSelected = false }
         navItems[index].isSelected = true
 
+        if(fragments[index] is CartScreen) {
+            binding.customNavBar.root.visibility = View.GONE
+        } else {
+            binding.customNavBar.root.visibility = View.VISIBLE
+        }
+
         val tag = fragments[index].javaClass.simpleName
         val existingFragment = supportFragmentManager.findFragmentByTag(tag)
 
@@ -88,8 +101,8 @@ class MainActivity : AppCompatActivity() {
         openPage(
             fragment = fragments[index],
             tag = fragments[index].javaClass.simpleName,
-            addToBackStack = true,
-            add = true
+            addToBackStack = false,
+            add = false
         )
     }
 

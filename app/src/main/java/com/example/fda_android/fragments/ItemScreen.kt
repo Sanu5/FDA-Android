@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.fda_android.data.ItemData
+import com.example.fda_android.databinding.ActivityMainBinding
 import com.example.fda_android.databinding.ItemViewBinding
 import com.example.fda_android.utils.UiState
 import com.example.fda_android.viewmodel.CartViewModel
@@ -28,6 +29,9 @@ class ItemScreen: Fragment() {
     private var _binding: ItemViewBinding? = null
     private val binding get() = _binding!!
 
+    private var _mainBinding: ActivityMainBinding? = null
+    private val mainBinding get() = _mainBinding!!
+
     private val itemId : String? by lazy {
         requireArguments().getString(ARG_ITEM_ID) ?: throw IllegalStateException("Must pass an itemId")
     }
@@ -42,6 +46,7 @@ class ItemScreen: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = ItemViewBinding.inflate(inflater, container, false)
+        _mainBinding = ActivityMainBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -56,6 +61,8 @@ class ItemScreen: Fragment() {
     private fun init() {
         setupBlurView()
         setupListeners()
+
+        mainBinding.customNavBar.root.visibility = View.GONE
     }
 
     private fun setupListeners() {
@@ -105,11 +112,7 @@ class ItemScreen: Fragment() {
 
                     is UiState.Error -> {
                         binding.progressBar.visibility = View.GONE
-                        Toast.makeText(
-                            requireContext(),
-                            state.message ?: "Add to Cart failed",
-                            Toast.LENGTH_SHORT
-                        ).show()
+//                        Toast.makeText(requireContext(), state.message ?: "Add to Cart failed", Toast.LENGTH_SHORT).show()
                     }
                 }
             }

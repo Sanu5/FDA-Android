@@ -14,7 +14,7 @@ class CartItemViewHolder(
     fun bind(item: ItemData?, onQuantityChanged: (String?, Int) -> Unit) {
         binding.tvDishName.text = item?.itemName
         binding.tvPrice.text = "$ " + item?.itemPrice
-        binding.tvQuantity.text = item?.cartItemCount.toString()
+        binding.tvQuantity.text = item?.quantity.toString()
 
         Glide.with(binding.imgDish.context)
             .load(item?.itemImage)
@@ -30,8 +30,8 @@ class CartItemViewHolder(
     }
 
     private fun updateQuantity(item: ItemData?, delta: Int, onQuantityChanged: (itemId: String?, newQuantity: Int) -> Unit) {
-        val currentQuantity = item?.cartItemCount
-        val newQuantity = maxOf(1, currentQuantity?.plus(delta) ?: 0)
+        val currentQuantity = item?.quantity
+        val newQuantity = currentQuantity?.plus(delta) ?: 0
 
         binding.tvQuantity.text = newQuantity.toString()
 

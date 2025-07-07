@@ -25,12 +25,11 @@ data class ItemData(
     val itemId: Int,
     val itemName: String,
     val itemImage: String,
-    val cartItemCount: Int,
+    val quantity: Int,
 //    val customizationQuestions: List<CustomizationQuestion>?,
     val itemDescription: String,
     val itemPrice: String,
-
-) : Parcelable
+    ) : Parcelable
 
 
 @Parcelize

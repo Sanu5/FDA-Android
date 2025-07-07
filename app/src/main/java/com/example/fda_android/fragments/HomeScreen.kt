@@ -96,16 +96,12 @@ class HomeScreen : Fragment() {
 
                     is UiState.Error -> {
                         binding.progressBar.visibility = View.GONE
-                        Toast.makeText(
-                            requireContext(),
-                            "Error: ${state.message}",
-                            Toast.LENGTH_SHORT
-                        ).show()
+//                        Toast.makeText(requireContext(), "Error: ${state.message}", Toast.LENGTH_SHORT).show()
                     }
 
                     UiState.Loading -> {
                         binding.progressBar.visibility = View.VISIBLE
-                        Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
                     }
 
                     is UiState.Success -> {
@@ -159,6 +155,7 @@ class HomeScreen : Fragment() {
     }
 
     companion object {
+        private const val TAG = "HomeScreen"
         fun newInstance(): HomeScreen {
             return HomeScreen()
         }

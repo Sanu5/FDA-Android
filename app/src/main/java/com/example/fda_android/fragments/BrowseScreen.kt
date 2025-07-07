@@ -48,12 +48,12 @@ class BrowseScreen: Fragment() {
                     }
                     is UiState.Error -> {
                         binding.progressBar.visibility = View.GONE
-                        Toast.makeText(requireContext(), "Error: ${state.message}", Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(requireContext(), "Error: ${state.message}", Toast.LENGTH_SHORT).show()
                         Log.e("BrowseScreen", "Error: ${state.message}")
                     }
                     UiState.Loading -> {
                         binding.progressBar.visibility = View.VISIBLE
-                        Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
                     }
                     is UiState.Success -> {
                         binding.progressBar.visibility = View.GONE

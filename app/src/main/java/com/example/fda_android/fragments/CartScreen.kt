@@ -1,15 +1,18 @@
 package com.example.fda_android.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.fda_android.MainActivity
 import com.example.fda_android.R
 import com.example.fda_android.data.CartResponse
 import com.example.fda_android.data.ItemData
@@ -18,6 +21,7 @@ import com.example.fda_android.ui.adapter.CartItemAdapter
 import com.example.fda_android.utils.UiState
 import com.example.fda_android.viewmodel.CartViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.jvm.java
 
 @AndroidEntryPoint
 class CartScreen() : Fragment() {
@@ -41,11 +45,20 @@ class CartScreen() : Fragment() {
 
         init()
         observeCartState()
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            exitToMainWithAnimation()
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.fetchCartData()
     }
 
     private fun init(){
@@ -64,17 +77,31 @@ class CartScreen() : Fragment() {
     }
 
     private fun setListeners() {
-        binding.btnClose.setOnClickListener {
-            requireActivity().onBackPressedDispatcher.onBackPressed()
-        }
+        binding.apply {
+            btnClose.setOnClickListener {
+                exitToMainWithAnimation()
+            }
 
-        binding.checkoutButton.setOnClickListener {
-            TODO()
-        }
+            btnCloseMain.setOnClickListener {
+                exitToMainWithAnimation()
+            }
 
-        binding.tvNoteHint.setOnClickListener {
-            TODO()
+            checkoutButton.setOnClickListener {
+                TODO()
+            }
+
+            tvNoteHint.setOnClickListener {
+                TODO()
+            }
         }
+    }
+
+    private fun exitToMainWithAnimation() {
+        val intent = Intent(requireContext(), MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+        requireActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        startActivity(intent)
+        requireActivity().finish()
     }
 
     private fun observeCartState() {
@@ -85,11 +112,11 @@ class CartScreen() : Fragment() {
                 when (state) {
                     is UiState.Empty -> {
                         binding.progressBar.visibility = View.GONE
-                        //showEmptyState()
+                        showEmptyState()
                     }
                     is UiState.Error -> {
                         binding.progressBar.visibility = View.GONE
-                        Toast.makeText(requireContext(), "Error: ${state.message}", Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(requireContext(), "Error: ${state.message}", Toast.LENGTH_SHORT).show()
                         Log.e("CartScreen", "Error: ${state.message}")
                     }
                     UiState.Loading -> {
@@ -98,7 +125,12 @@ class CartScreen() : Fragment() {
                     is UiState.Success -> {
                         binding.progressBar.visibility = View.GONE
                         val cartResponse = state.data
-                        bindCartData(cartResponse)
+                        if (cartResponse.data?.items?.size == 0) {
+                            showEmptyState()
+                        } else {
+                            bindCartData(cartResponse)
+                        }
+
                     }
                 }
             }
@@ -112,7 +144,7 @@ class CartScreen() : Fragment() {
             binding.restaurantAddressCart.text = cartData.restaurantData?.address
 
             binding.itemCount.setText(cartData.cartItemCount.toString() + " " + getString(R.string.items))
-            binding.tvSubtotalValue.text = cartData.subtotal
+            binding.tvSubtotalValue.text = "$ " + cartData.subtotal
 //            binding.tvNoteHint.text = cartData.noteForRestaurant
             Log.d("CartScreen", "Cart Data: $cartData")
             setupCartItems(cartData.items)
@@ -130,6 +162,7 @@ class CartScreen() : Fragment() {
 
     private fun showEmptyState(){
         binding.emptyStateView.visibility = View.VISIBLE
+        binding.btnCloseMain.visibility = View.VISIBLE
         binding.clRootCart.visibility = View.GONE
     }
 }
