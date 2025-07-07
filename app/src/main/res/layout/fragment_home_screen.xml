@@ -120,7 +120,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:indeterminate="true"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:indeterminateTint="@color/white"
                 app:indicatorSize="40dp"
                 app:trackThickness="4dp"
