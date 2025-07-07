@@ -1,11 +1,14 @@
 package com.example.fda_android.viewholder
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.fda_android.data.RestaurantItem
 import com.example.fda_android.databinding.RestaurantListItemBinding
+import eightbitlab.com.blurview.RenderEffectBlur
 
 class RestaurantViewHolder(val binding: RestaurantListItemBinding): RecyclerView.ViewHolder(binding.root) {
 
